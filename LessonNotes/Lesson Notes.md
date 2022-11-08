@@ -1,14 +1,17 @@
 # Lesson 0 - Introduction
 ***
 - On the base hardware level, computers only understand 0s and 1s (binary)
+
 | BINARY | REAL WORLD |
 |:------:|:----------:|
 |   000  |      0     |
 |   001  |      1     |
 |   010  |      2     |
 |   011  |      3     |
+
 - In real world numbers, we associate each row of a number with a certain value. The number 563 can be deconstructed to 100ths, 10ths, and 1s as: **5x100 + 6x10 + 3x1**
 - In **BINARY** you only use 2 to the power
+
 | BINARY | DECONSTRUCTED | OUTPUT  |
 |:------:|---------------|---------|
 |        |   0x2^2 = 0   |         |
@@ -18,11 +21,14 @@
 |        |   0x2^2 = 0   |         |
 |   011  |   1x2^1 = 2   | 3 = 011 |
 |        |   1x2^0 = 1   |         |
+
 - **ASCII** is short for American Standard Code for Information Interchance. It is a standard as to which sequence of 0s and 1s represent what letter, number, symbol ...
+
 |  **ASCII** |    72    |    73    |    33    |
 |:----------:|:--------:|:--------:|:--------:|
 | **BINARY** | 01001000 | 01001001 | 00100001 |
 | **OUTPUT** |     H    |     I    |     !    |
+
 - 01001000 is **8bits** or **1byte**
 - With 8bits, if you choose to include 0, you can only count to 255 (256 if you exclude 0)
 - **UNICODE** is a superset onto **ASCII** to allow for not just 8bit character mapping (to keep backward compatability), but also 16bit mapping and therefore allows for **65.000** characters to be mapped.
@@ -32,9 +38,11 @@
 
 # Lesson 1 - C Language
 ***
+
 |                              **CORRECTNESS**                             |                                                                                **DESIGN & STYLE**                                                                               |
 |:------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | The code must solve the problem at <br>hand and givce a correct solution | Good designed code allows others<br>to understand you code easier, or<br>yourself after some time later.<br>Efficient algorithms are key for<br>nice and clean structured code. |
+
 - **SOURCE CODE -> COMPILER -> MACHINE CODE**
 - To inculde a variable in a print statement in C use %  followed by its datatype (i for int, s for string ...). Here %s is the placeholder for the string answer.
 ```c
@@ -50,6 +58,7 @@ int main(void)
 }
 ```
 - **DATATYPES in C**
+
 | **BASH COMMAND** |      **DESCRIPTION**      |
 |:----------------:|:-------------------------:|
 |        cd        |      change directory     |
@@ -58,7 +67,9 @@ int main(void)
 |       mkdir      | create directory / folder |
 |       rmdir      | remove directory / folder |
 |        mv        |            move           |
+
 - **FUNCTIONS in CS50.h**
+
 | **printf placeholder** | **Description** |
 |:----------------------:|:---------------:|
 |           %c           |       char      |
@@ -66,7 +77,9 @@ int main(void)
 |           %i           |       int       |
 |           %li          |     long int    |
 |           %s           |      string     |
-- **OPERATORS in C
+
+- **OPERATORS in C**
+
 | **Operator** |             **Description**            |
 |:------------:|:--------------------------------------:|
 |       +      |                addition                |
@@ -74,6 +87,7 @@ int main(void)
 |       *      |             multiplication             |
 |       /      |                division                |
 |       %      | remainder<br>5%2 = 1<br>5/2 = 2 Rest 1 |
+
 - There are three ways to increment a variable by one. Here 1 is added to the variable "counter"
 ```c
 counter = counter + 1;
@@ -305,7 +319,8 @@ int main(int argc, string argv[])
 # Lesson 3 - Algorithms
 ***
 - The efficiency of code or algorithms is measured in **running time**. How much time does the code / algorithm take to make the neccessary steps. The measure for this is **big O notation**
-![[bigOgraph.png]]
+
+![image info](./Pictures/bigOgraph.png)
 - The bigger the problem size becomes, the more similar O(n) and O(n/2) will look and only O(log2n) will stand out
 - Convention is, to just refer to O(log2n) as O(logn)
 - A for loop that runs n times, big O will be O(n)
@@ -327,18 +342,22 @@ int main(int argc, string argv[])
 	- Θ(n)
 	- Θ(logn)
 	- Θ(1)
+
 | **NOTATION** |               **DESCRIPTION**              |
 |:------------:|:------------------------------------------:|
 |       O      |        upper bound (how many steps)        |
 |       Ω      |         lower bound (how few steps)        |
 |       Θ      | O = Ω (upper and lower bound are the same) |
+
 - The input n into these expressions, is the number of steps for the algorithm to complete. Smaller means faster
+
 |  **2** |       | **100** |       | **10.000** |
 |:------:|:-----:|:-------:|:-----:|:----------:|
 | log(n) | **<** |   (n)   | **<** |    (n^2)   |
 
+
 ### LINEAR SEARCH
-![[linearSearch.png]]
+![image info](./Pictures/linearSearch.png)
 ```c
 int main (void)
 {
@@ -359,7 +378,7 @@ int main (void)
 - **Ω(1)** because number could be found at array index 0 and therefore run only once
 
 ### BINARY SEARCH
-![[binarySearch.png]]
+![image info](./Pictures/binarySearch.png)
 - Prerequisit is, that the array is sorted from small to big
 - First we divide the array in the middle and look if the left and right half is bigger or smaller than the number we look for. Then we can disgard the half our number is too big for. We divide the remainder again .... until we find the number
 
@@ -384,7 +403,7 @@ people[0].number = "09953-2211"
 - This **is not a class or object** because this does not have the ability to also contain functions and C is not an object oriented programming language
 
 ### SELECTION SORT
-![[selectionSort.png]]
+![image info](./Pictures/selectionSort.png)
 - For i from 0 to n-1 (because array starts at index 0 not 1, therefore length of array -1 gives index 0). Find smallest num between num[i] and num [n-1] and swap smallest num with num[i]
 
 -  **O(n^2)** The steps are actually layed out as n + n(-1) + n(n-2) ... and since n^2/2 has the highest impact on this equation, we just consider n^2
@@ -392,4 +411,4 @@ people[0].number = "09953-2211"
 - **Θ(n^2)** Because best case scenario (array is sorted) and worst case (array not sorted) take the same time O = Ω = Θ
 
 ### BUBBLE SORT
-![[bubbleSort.png]]
+![image info](./Pictures/bubbleSort.png)
