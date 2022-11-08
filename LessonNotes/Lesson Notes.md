@@ -380,7 +380,17 @@ int main (void)
 ### BINARY SEARCH
 ![image info](./Pictures/binarySearch.png)
 - Prerequisit is, that the array is sorted from small to big
-- First we divide the array in the middle and look if the left and right half is bigger or smaller than the number we look for. Then we can disgard the half our number is too big for. We divide the remainder again .... until we find the number
+```c
+// Pseudo Code
+// If nothing in array
+//    return false
+// If number at middle of array
+//    return true
+// Else if number < number[middle of array]
+//    search array[0] through array[middle - 1]
+// Else if number > number[middle of array]
+//    search array[middle + 1] through array[arrayLength - 1]
+```
 
 -  **O(logn)** because you half the problem with every step until you find the target
 -  **Ω(1)** because the first index of the array may be the number you looked for
@@ -404,7 +414,13 @@ people[0].number = "09953-2211"
 
 ### SELECTION SORT
 ![image info](./Pictures/selectionSort.png)
-- For i from 0 to n-1 (because array starts at index 0 not 1, therefore length of array -1 gives index 0). Find smallest num between num[i] and num [n-1] and swap smallest num with num[i]
+```c
+// Pseudo Code
+// For i from 0 to n-1
+//    Find smallest num between num[i] and num[i-1]
+//    Swap smallest num with num [i]
+```
+
 
 -  **O(n^2)** The steps are actually layed out as n + n(-1) + n(n-2) ... and since n^2/2 has the highest impact on this equation, we just consider n^2
 -  **Ω(n^2)** Even if the array was already sorted, it would iterate through n times and make sure all integers are in order so n + n(-1) + n(n-2) ....
@@ -412,3 +428,95 @@ people[0].number = "09953-2211"
 
 ### BUBBLE SORT
 ![image info](./Pictures/bubbleSort.png)
+```c
+// Pseudo Code
+// Repeat arrayLength - 1 times
+//   For i from 0 to arrayLength -2 (because last array index has no i+1 pos)
+//      If num[i] and num[i+1] not in order
+//         Swap num[i] with num[i+1]
+//      If no swaps
+//         quit
+```
+- The reason to do this n-1 times and not just the inner loop, is that during each O -> n-2, the swap moves the digits only one position. If 0 was at the end, it would only move the whole array one to the left
+
+- **O(n^2)** You have two loops so you multiply outer loop x inner loop, that is (n-1) x (n-2) = n^2 - 1n - 1n + 3 ... since only n^2 is very big, it is deemed the biggest impact and the rest of it is dropped
+-  **Ω(n)** In the best case scenario (array is sorted), Bubble sort has only one pass to make and quits if no swaps are made
+
+### MERGE SORT
+![image info](./Pictures/mergeSort.png)
+- Merge Sort divides the problem in half and then merges the results of the sorted halfs
+```c
+// Pseudo Code
+
+// If only one number
+//    quit
+// Else
+//    Sort left half of array
+//    Sort right half of array
+//    Merge sorted halfes
+```
+- You end up with to sorted halfes (lists) and look at the first position of each half. The smaller digit at this comparison is then transfered to the sorted list
+
+- **O(n log n)**
+- **Ω(n log n)**
+- **Θ(n log n)**
+
+
+### RECURSION
+
+![image info](./Pictures/recursion.png)
+- Recursion is a programming technique, whereby a function calls itslef
+- An example would be our mario.c program that drew the blocks
+```c
+// Mario.c regular way
+#include <cs50.h>
+#include <stdio.h>
+
+void draw(int n);     // prototype for our own draw function
+
+int main(void)
+{
+	int height = get_int("Height: ");
+	draw(height);
+}
+
+void draw(int n)      // draw function
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < i+1; j++)
+		{
+			printf("#");
+		}
+		printf("\n");
+	}
+}
+```
+- And here the same program with recursion
+```c
+#include <cs50.h>
+#include <stdio.h>
+
+void draw(int n);     // prototype for our own draw function
+
+int main(void)
+{
+	int height = get_int("Height: ");
+	draw(height);
+}
+
+void draw(int n)
+{
+	if (n <= 0)     // Base case, a way to exit and avoid infinite loop
+	{
+		return;
+	}
+	draw(n-1);
+
+	for (int i = 0; i < n; i++)
+	{
+		printf("#");
+	}
+	printf("\n");
+}
+```
