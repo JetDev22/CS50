@@ -761,4 +761,4 @@ int collatz(int n)
 	}
 }
 ```
-- The 1 added to the collatz is because we count the steps!
+- The 1 added to the collatz is because we count the steps! Therefore we have to count the steps (+1) for every iteration
