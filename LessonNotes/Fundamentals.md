@@ -637,3 +637,128 @@ The array is already perfectly sorted. But we still have to split and recombine 
 ***
 # RECURSION
 ***
+
+- We might describe an implementation of an algorithm as being particularly "elegant" if it solves a problem in a way that is both interesting and easy to visualize
+- The technique of **recursion** is a very common way to implement such an "elegant" solution
+- The definition of a recursive function is one that, as part of its execution, invokes itself
+
+**EXAMPLE**
+- The factorial function (n!) is defined over all positive integers
+- n! equals all of the positive integers less than or equal to n, multiplied together
+- Thinking in terms of programming, we'll define the mathematical function n! as fact(n)
+```c
+// example of factorial
+fact(1) = 1
+fact(2) = 2 * 1
+fact(3) = 3 * 2 * 1
+fact(4) = 4 * 3 * 2 * 1
+
+// expressing factorial in terms of factorial
+fact(1) = 1
+fact(2) = 2 * fact(1)
+fact(3) = 3 * fact(2)
+fact(4) = 4 * fact(3)
+
+// definition of factorial for any number in code would be
+fact(n) = n * fact(n-1)
+```
+- This forms the basis for a **recursive definition** of the factorial function
+- Every recursive function has two cases that could apply, given any input
+	- The **base case**, which when triggered will terminate the recursive process
+	- The **recursive case**, which is where the recursion will actually occur
+
+```c
+// implementing factorial into a recursive function
+
+int fact(int n)
+{
+	// base case
+	if (n == 1)
+	{
+		return 1;
+	}
+
+	// recursive case
+	else
+	{
+		return n * fact(n-1);
+	}
+}
+```
+- Whenever you have a single line loops or single line conditional branches you can leave the curley braces out
+```c
+int fact(int n)
+{
+	// base case
+	if (n == 1)
+		return 1;
+	// recursive case
+	else
+		return n * fact(n-1);
+
+}
+```
+- So with this function, if we set n = 5 we see that it will pass the base case, go to the else statement. There we have: 5 * fact(5-1). So now n will equal 4 .... Once n = 1 we hit the base case and will no longer go to the recursive function but return 1 from the base case and all previous fact(n) will have their input to solve their fact()
+
+- In general, but not always, recursive functions replace loops in non-recursive functions
+```c
+// the iterative way of the recursive code above would look like this
+
+int fact(int n)
+{
+	int product = 1;
+	while (n > 0)
+	{
+		product *= n;
+		n--;
+	}
+	return product;
+}
+```
+- It is possible to have more than one base case or recursive case, if the program might recurse or terminate in different ways, depending on the input being passed in
+
+- **Multiple base case example**: The Fibonacci number sequence is defined as follows
+	- The first element is 0
+	- The second element is 1
+	- The n-th element is the sum of the (n-1)th and (n-2)th elements
+
+- **Multiple recursive cases example**: The Collatz conjecture
+	- The Collatz conjecture applies to positve integers and speculates that it is always possible to get "back to 1" if you follow these steps:
+		- If n = 1, stop
+		- Otherwise, if n is even, repeat this process on n/2
+		- Otherwise, if n is odd, repeat this process on 3n + 1
+```c
+#include <stdio.h>
+
+int collatz(int n);
+
+int main(void)
+{
+	int result = collatz(3);
+
+	printf("%i\n", result);
+
+}
+
+int collatz(int n)
+{
+
+	// base case
+	if (n == 1)
+	{
+		return 1;
+	}
+
+	// recursive case for even number
+	else if ((n % 2) == 0)
+	{
+		return 1 + collatz(n / 2);
+	}
+	// recursive case for odd number
+	else
+	{
+		return 1 + collatz(3*n + 1);
+	}
+}
+```
+- The 1 added to the collatz is because we count the steps!
