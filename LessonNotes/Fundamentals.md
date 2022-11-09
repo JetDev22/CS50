@@ -54,6 +54,7 @@
 
 - The string data type is used for variables that will store a series of characters
 ***
+
 ***
 
 # VARIABLES
@@ -77,6 +78,18 @@ number = 17;               // Assignement
 int number = 17;           // Initialization
 ```
 ***
+### VARIABLE SCOPE
+
+- Scope is a characteristic of a variable that defines from which functions that variable may be accessed
+- For the most part local variables in C are "passed values" in function calls. The function calling this variable uses only its value to perform its function and passes the result in its own variable. So the passed variable is not altered, unless you overwrite it on purpose
+
+**LOCAL VARIABLE**
+- Can only be accessed within the function in which it was created
+
+**GLOBAL VARIABLE**
+- Can be accessed by any function in the program. To declare a global variable it has to be declared outside of a function (main() is also a function therefore declare it outside of main)
+***
+
 ***
 
 # CONDITIONALS
@@ -159,6 +172,7 @@ else
 int x = (boolean expression) ? 5 : 6;
 ```
 ***
+
 ***
 
 # OPERATORS
@@ -240,6 +254,7 @@ x--;    // subtracts 1 from x
 |  inequality | x != y |
 
 ***
+
 ***
 
 # LOOPS
@@ -257,3 +272,225 @@ while (true)
 ```
 - This is what we call an infinite loop. The lines of code between the curley braces will execute repeatedly from top to bottom, forever unless we break out of it with a **break; statement** or kill the program
 ***
+### WHILE LOOP
+
+```c
+while (boolean expression)
+{
+	// code;
+}
+```
+- if the boolean expression evaluates to true, all lines of code between the curley braces will execute from top to bottom, as long as the boolean expression evaluates to true after each pass
+***
+### DO-WHILE LOOP
+
+```c
+do
+{
+	// code;
+}
+while (boolean expression);
+```
+- This loop will execute all lines of code between the curley braces at least once, and only then checks if the boolean expression is still true. If so, it will go back to the do part and execute the code. Compared to a regular while loop, this loop always executes at least once
+***
+### FOR LOOP
+
+```c
+for (int i = 0; i < 10; i++)
+{
+	// code;
+}
+```
+- Syntactically unattractive, but for loops are used to repeat the body of a loop a specified number of times (here 10 times)
+- The expression in the brakets is constructed as follows:
+		for ( variable ; conditional; action / iteration)
+- The process undertaken in a for loop is:
+	- The counter variable(s) are set
+	- The boolean expression is checked
+	- The counter variable is incremented / decremented and then the boolean expression is checked again
+***
+### USE CASES
+
+**WHILE LOOP**
+- Use when you want a loop to repeat an unknown number of times and possibly not at all
+
+**DO-WHILE**
+- Use when you want a loop to repeat an uknown number of times, but at least once
+
+**FOR LOOP**
+- Use when you want a loop to repeat a discrete number of times, though you may not know the number at the instance the program was written
+***
+
+***
+# FUNCTIONS
+***
+- So far all programs we have written, have been in main()
+- C and nearly all languages developed since, allow us to write functions, sometimes als known as procedures, methods or subroutines
+- A function is basically a black box that takes none or more input and returns one output
+- The behaviour of a function is typically predictable by its name
+
+**ORGANIZATION**
+- Functions help break up complicated problems into more managable subparts
+
+**SIMPLIFICATION**
+- Smaller components tend to be easier to design
+
+**REUSEABILITY**
+- Functions can be recycled. You only need to write them once, but we can use them as often as you need
+***
+### FUNCTION DECLARATION
+
+```c
+int add_two_ints(int a, int b):
+```
+- The first step to creating a function is to declare it. This gives the compiler a heads up that a user-written function appears in the code
+- Function declaration should always go atop of your code, before you begin writting main()
+- There is a standard form, that every function declaration follows:
+		**return-type name (argument-list);**
+- The return type is what kind of variable the function will output (int, float, void, ..)
+- The name should describe the function of the function
+- The argument list is the comma-seperated set of inputs to your function, each with type and name
+***
+### FUNCTION DEFINITION
+
+```c
+int add_two_ints(int a, int b)
+{
+	int sum = a + b;
+	return sum;
+}
+```
+- The second step to creating a function is to define it. This allows for predictable behaviour when the function is called with inputs (arguments)
+***
+### FUNCTION CALLS
+
+```c
+int x = 5;
+int y = 6;
+int z = add_two_ints(x, y)
+```
+- To call a function, simply pass its appropriate arguments and assign its return value to something of the correct type (remember return type specified during function declaration)
+***
+### FUNCTION MISC
+
+- Sometimes functions can take no inputs. In this case, we declare the function as having void argument list
+- Sometimes functions can have no output, so we declare the function having a void return type
+***
+
+***
+# COMMAND LINE ARGUMENTS
+***
+
+- So far all of our programs started with
+```c
+int main(void)
+{
+	// code;
+}
+```
+- Since we have been collecting user input through in-program prompts and not from outside of the program
+- To collect so called command line arguments from the user, we have to declare main as follows
+```c
+int main(int argc, string argv[])
+{
+	// code;
+}
+```
+- These two special arguments enable you to know what data the user provided at the command line and how much data they provided
+***
+### ARGUMENT COUNT argc
+
+- This integer-type variable will store the number of command line arguments the user typed when the program was executed
+
+|  **COMMAND LINE**  | **argc** |
+|:------------------:|:--------:|
+|      ./program     |     1    |
+| ./program 1024 C4Z |     3    |
+
+**NOTE**
+- The program name itself is counted as well!
+***
+### ARGUMENT VECTOR argv
+
+- This array of strings, stores one string per element, the actual text the user typed into the command line, when the program was executed
+- The first element at argv is always found at argv[0] and is the program name
+
+| **./program 1024 C4Z** |   **argv**  |
+|:----------------------:|:-----------:|
+|         argv[0]        | "./program" |
+|         argv[1]        |    "1024"   |
+|         argv[2]        |    "C4Z"    |
+
+
+***
+
+***
+
+# ARRAYS
+***
+- Arrays are fundamental data structures. We use arrays to hold **values of the same type**(string, int, char ...) at contigous memory locations
+- You can access each element of an array, which can only hold a certain amount of elements, by index number
+- In C, the elements of an array are indexed starting from index 0. This is one of the major reasons we count from 0 and not 1 in C
+- If an array consists of n elements, the first is located at index 0. The last element at index(n-1)
+***
+### ARRAY DECLARATION
+
+```c
+type name[size]
+```
+- The type is what kind of variable at each element at the array will be
+- The name is what you want the array to be called
+- The size is how many elements you would like your array to contain
+- If you think of a single element of an array of type data type, the same as you would any other variable of type data type, then all the familiar operations make sense
+```c
+bool truthable[10];
+truthable[2] = false;
+if (truthable[7] == true)
+{
+	printf("True!\n");
+}
+```
+**CAUTION** 
+- in the upper example you have 10 elements in the array, that means index 0 - (n-1) which means last index is 9. If you accessed truthable[10] you would be out of scope and find "\0" which defines the end of an array in memory
+
+- When declaring and initializing an array simultanously, there is a special syntax that me be used to fill up the array with its starting values
+
+**INSTANTIATION SYNTAX**
+```c
+bool truthable[3] = {false, true, true};
+```
+
+**INDIVIDUAL ELEMENT SYNTAX**
+```c
+bool truthable[3];
+truthable[0] = false;
+truthable[1] = true;
+truthable[2] = true;
+```
+
+- You can leave the array size empty at instantiation and the compiler will figure out its size, depending on its elements
+- Arrays can consist of more than a single dimension. You can have as many size specifiers as you wish.
+```c
+bool battleship[10][10];
+```
+- You can think of this as a 10 x 10 grid of cells. In memory it really just is a 100 element one-dimensional array
+```c
+// array bool battleship[10][10]
+
+|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
+```
+- While we can treat individual elements of an array as variables, we cannot treat the entire arrays themselves as variables. We cannot assigne one array to another using =. Instead we must use a loop to copy each element over, one at a time
+- Recall that most variables in C are "passed by value" in function calls. Arrays do not follow this rule. They are "passed by reference". The callee recieves the actual array, not a copy of the array
+***
+
+***
+
