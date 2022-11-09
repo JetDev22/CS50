@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lesson Notes.md",
+                "file": "Fundamentals.md",
                 "mode": "source",
                 "source": false
               }
@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,7 +81,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 245.5
   },
   "right": {
     "id": "cbc6f1db56440ac4",
@@ -149,9 +148,10 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "dee1f7002954b069",
+  "active": "70711e8adc5255a6",
   "lastOpenFiles": [
     "Lesson Notes.md",
+    "Fundamentals.md",
     "CommandLine.md",
     "Pictures/bigOgraph.png",
     "bigOgraph.svg",

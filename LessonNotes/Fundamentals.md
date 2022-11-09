@@ -494,3 +494,146 @@ bool battleship[10][10];
 
 ***
 
+# LINEAR SEARCH
+***
+![image info](./Pictures/shortLinearSearch.png)
+- In linear search, the ide of the algorithm is to iterate across the array from left to right, searching for a specified element
+```c
+// pseudo code
+//
+// Repeat, starting at the first element
+//    If the first element is what you're looking for (target)
+//        quit
+//    Otherwise, move to the next element
+```
+
+**WORST CASE SCENARIO - O(n)**
+We have to look through the entire array of n elements, either because the target element is the last element of the array or does not exist in the array at all
+
+**BEST CASE SCENARIO - Ω(1)**
+The target element is the first element of the array and so we can stop looking immediately after we start
+***
+
+***
+# BINARY SEARCH
+![image info](./Pictures/shortbinarySearch1.png)
+![image info](./Pictures/shortbinarySearch2.png)
+![image info](./Pictures/shortbinarySearch3.png)
+- In binary search, the idea of the algorithm is to divide and conquer, reducing the search area by half each time, trying to find a target number
+- In order to leverage this power however, **our array must first be sorted**, else we cannot make assumptions about the array's contents
+```c
+// pseudo code
+//
+// Repeat until (sub)array is of size 0
+//   Calculate the middle point of the current (sub)array
+//   If target is at the middle
+//      quit
+//   Otherwise if target is less than middle, repeat changing the end point of   //      new array to be just to the left of the middle 
+//   Otherwise if target is greater than middle, repeat changing the start point 
+//      of new array to be just to the left of the middle 
+```
+
+**WORST CASE SCENARIO - O(log n)**
+We have to divide a list of n elements in half repeatedly to find the target element, either because the target element will be found at the end of the last division or does not exist in the array at all
+
+**BEST CASE SCENARIO - Ω(1)**
+The target element is at the midpoint of the full array and so we can stop looking immediately after we start
+***
+
+***
+# BUBBLE SORT
+***
+![image info](./Pictures/shortBubbleSort1.png)
+![image info](./Pictures/shortBubbleSort2.png)
+![image info](./Pictures/shortBubbleSort3.png)
+
+- In bubble sort, the idea of the algorithm is to move higher valued elements generally towards the right and lower value elements generally towards the left
+```c
+// pseudo code
+//
+// Set swap counter to a non-zero value
+// Repeat until swap counter is 0
+//   Reset swap counter to 0
+//   Look at each adjacent pair
+//      If two adjacent elements not in order, swap them and swap counter++
+```
+- The algorithm will pass over the array and swap out of order elements with each other. For every swap the counter is incremented by 1 and therefore not 0 once we reach the end of the array. Once all elements are sorted, the will be no swap and therefore the counter will be 0 at the end of the arry. Now the counter is 0 the array can be assumed sorted and the algorithm stops
+
+**WORST CASE SCENARIO - O(n^2)**
+The array is in reverse order, we have to "bubble" each of the n elements all the way across the array and since we can only fully bubble one element into position per pass, we must do this n times
+
+**BEST CASE SCENARIO - Ω(n)**
+The array is already perfectly sorted and we make no swaps on the first pass
+***
+
+***
+# SELECTION SORT
+***
+![image info](./Pictures/shortSelectionSort1.png)
+![image info](./Pictures/shortSelectionSort2.png)
+- Above the smallest next number is 2, this is already at the **first unsorted position** of the array. so we contine. Unsorted array start index will increase for every found number
+- In selection sort, the idea of the algorithm is to find the smallest unsorted element and add it to the end of the sorted list
+```c
+// pseudo code
+//
+// Repeat until no unsorted elements remain
+//   Search the unsorted part of the data to find smallest value
+//      Swap smallest found value with first element of unsorted part
+```
+
+**WORST CASE SCENARIO - O(n^2)**
+We have to iterate over each of the n elements of the array (to find the smallest unsorted element) and we must repeat this process n times, since only one element gets sorted on each pass
+
+**BEST CASE SCENARIO - Ω(n^2)**
+Exactly the same! There is no way to gurantee the array is sorted until we go through this process for all the elements in the array
+***
+
+***
+# MERGE SORT
+***
+![image info](./Pictures/shortMergeSort1.png)
+- First we will sort the left half of the array. Since we don't yet know how to sort this array of now 3 numbers, we go back to our code and have it sort the half of the now half array
+![image info](./Pictures/shortMergeSort2.png)
+- Since we can not divide 3 by 2 to get even halfs, we follow the rule that **that the left half has to always be smaller than the right half, if it is not even**. No we are left with only a single element and that is to be considered sorted already
+![image info](./Pictures/shortMergeSort3.png)
+- No that 5 is sorted, we go to the other half which is now 2 and 1. So we go back to our code and divide the array of 2, 1 into an array with only one element which will be 2. Since it is a single element we again can assume this to be sorted. That leaves us with an array with only the element 1, which again is sorted.
+![image info](./Pictures/shortMergeSort4.png)
+- No we come to the merge part of our code. Now we have to first consider these light purple halfes and we have to decide which one has the lower element. Between 2 and 1, 1 is the lower element. So we take the 1 and put it into the first position of another subarray.
+![image info](./Pictures/shortMergeSort5.png)
+- This leaves us with the array in which 2 is and since it is a single element, there is nothing to compare it against, if it is the lowest element or not. So we just add it to our subarray.
+![image info](./Pictures/shortMergeSort6.png)
+- No we are no longer thinking of the purple area as halfs, but again as an array with 5, 1, 2 in it. So now we look at the first element of the left part of this array and compare it against the first part of the second array, to see which is lower and then transfer that to a new subarray. Here I compare 5 against 1. 1 is of course the lower element, so we take one an add it as first element to our subarray.
+![image info](./Pictures/shortMergeSort7.png)
+- No we compare again first element of the left array to the first element of the right array. Here 5 against 2. 2 is lower, so we add 2 to our subarray
+![image info](./Pictures/shortMergeSort8.png)
+- Now there is only 5, which can not be compared to another element, so we just transfer it to the subarray.
+![image info](./Pictures/shortMergeSort9.png)
+- At this point, let us think recursively were we are. We have sorted the left portion of the original array recursively. Now we will the the exact same with the right part of the original array and end up with this
+![image info](./Pictures/shortMergeSort10.png)
+- Now we have sorted the left and right half of the original array. Next step is to merge these to sorted arrays together. So now we compare the first element of the left have, against the first element of the right half against each other. Here this would be 1 and 3. 1 is lower, so 1 gets added to the new array.
+![image info](./Pictures/shortMergeSort11.png)
+- No we contine to compare the first element of the left half, aginst the first element of the second half. Here 2 and 3. 2 is lower ..... we continue this until there is either nothing left on one side, which causes the other side to be just added to the new array, or we compared all elements and end up with a sorted array.
+![image info](./Pictures/shortMergeSort12.png)
+
+- In merge sort, the idea of the algorithm is to sort smaller arrays and then combine those subarrays together (merge them) in sorted order
+- Merge sort leverages something called recursion
+```c
+// pseudo code
+//
+// Sort left half of the array (assuming n > 1)
+// Sort right half of the array (assuming n > 1)
+// Merge the two halves together
+```
+
+**WORST CASE SCENARIO - O(n log n)**
+We have to split n elements up and then recombine them, effectively doubling the sorted subarrays as we build them up (combining sorted 1-element arrays into 2-element arrays, combining sorted 2-element arrays into 4-element arrays ...)
+
+**BEST CASE SCENARIO - Ω(n log n)**
+The array is already perfectly sorted. But we still have to split and recombine it back together with this algorithm
+
+![image info](./Pictures/mergeSortOver.png)
+***
+
+***
+# RECURSION
+***
