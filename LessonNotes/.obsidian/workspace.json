@@ -14,18 +14,6 @@
               "type": "markdown",
               "state": {
                 "file": "Fundamentals.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "dee1f7002954b069",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Fundamentals.md",
                 "mode": "preview",
                 "source": false
               }
@@ -60,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "single",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
