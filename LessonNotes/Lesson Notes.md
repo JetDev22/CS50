@@ -520,3 +520,138 @@ void draw(int n)
 	printf("\n");
 }
 ```
+***
+***
+# Lesson 4 - Memory
+***
+### HEXADECIMAL SYSTEM
+- RGB Values are usually displayed as an amount of RedGreenBlue and are worked with in the hexadecimal system
+
+| **RED** | **GREEN** | **BLUE** |    **COLOR**    |
+|:-------:|:---------:|:--------:|:---------------:|
+|    FF   |     00    |    00    |  #FF0000 = RED  |
+|    00   |     FF    |    00    | #00FF00 = GREEN |
+|    00   |     00    |    FF    |  #0000FF = BLUE |
+|    FF   |     FF    |    FF    | #FFFFFF = WHITE |
+|    00   |     00    |    00    | #000000 = BLACK |
+
+- There are the following systems:
+	- Binary = 01
+	- Decimal = 01233456789
+	- Hexadecimal = 0123456789ABCDEF
+
+![image info](./Pictures/hexSys.png)
+- So you can construct different numbers since the hexadecimal system is base16. That means the first position is 16^0, the second 16^1 ...
+	- 0 = 00 = (16 x 0) + (1 x 0)
+	- 9 = 09 = (16 x 0) + (1 x 9)
+	- 15 = 0F = (16 x 0) + (1 x 15)
+	- 16 = 10 = (16 x 1) + (1 x 0)
+	- 174 = AE = (16 x 10) + (1 x 14)
+	- 255 = FF = (16 x 15) + (1 x 15)
+- This allows to count to 255 with using only 50% of the digits in hexadecimal, compared to decimal, thus using less memory
+- 255 in binary is 11111111 so FF represents 1111 for each F meaning hexadecimal treats data in units of 4bits
+- RAM Memory location is counted in hexadecimal but to not confuse the number with a decimal, the **convention is to count 0x0, 0x1 ... 0xF** instead of 0, 1 .. 15
+
+### POINTERS
+```c
+#include <stdio.h>
+
+// assign the value 50 to the variable n
+int main(void)
+{
+	int n = 50;
+	printf("%i\n", n);
+}
+
+// This will print 50
+```
+- An integer uses 4bytes, so somewhere in memory 4bytes are used to store the integer 50
+- A Pointer is the variable that stores the memory adress of some value
+```c
+int *p = &n;
+```
+- Here & is an operator for "adress of". If you use this, c will figure out what the memory adress of that variable is
+- To store that adress not as an int but as the memory adress you have to store it in a variable with a preceeding * to let C know, that you are not storing an integer in this variable but the adress of something
+- So you first declare the data type, of which you want to store the memory adress (int, float, char) to a pointer variable (using the asterix) and then you use & to get the adress of said variable
+```c
+#include <stdio.h>
+
+// no we assign 50 to n and then get the adress and print the memory location
+int main(void)
+{
+	int n = 50;
+	int *p = &n;
+	printf("%p\n", p);
+}
+```
+- This will print 0x7ffcb4578e5c
+- Note we are not using %i to print the content of the pointer but %p
+- You can print this without declaring a pointer first as well
+```c
+int main(void)
+{
+	int n = 50;
+	printf("%p\n", &n);
+}
+```
+- This would also print 0x7ffcb4578e5c
+- As with previous variable declarations, once the variable is declared, you no longer have to use int in front of or use the asterix
+- When you want to see what a certain memory location has stored, and not just look where a certain variable is stored
+```c
+int main(void)
+{
+	int n = 50;
+	int *p = &n;
+	printf("%p\n", p);      // get the adress of int n
+	printf("%i\n", *p);     // Look up what int is stored at memory adress p
+}
+```
+- This will print 0x7ffcb4578e5c and then 50, which is the integer that was stored at this memory adress
+- Note to look up what is at a certain memory location we again have to use the asterix prior p (called dereferencing the pointer)
+- A pointer is always taking up **8bytes in memory (64bits)**, because todays memory is big enough, so an adress takes up to 8bytes to represent
+
+### STRINGS IN C
+- Until no we used the <cs50.h> library to get the data type string
+```c
+string s = "Hi!";
+
+// This is as an array of chars as:
+// H i ! \0
+// The \0 (null) just representing the end of the array
+```
+- So since this string is an array of characters (chars) it it stored in sequence next to each other in memory
+- But this array is stored as variable s of type string, which does not exist in C. So cs50.h created the data type string and a variable of type string is nothing but a **pointer**, pointing at the memory location, where the first element of the array of chars is stored. The end is depicted by the null character
+```c
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+	string s = "Hi!";
+	printf("%s\n", s);
+}
+
+// prints Hi!
+
+int main(void)
+{
+	char *s = "Hi!";           // cs50.h gave us string data type, but C does not have such a data type. C uses char *s
+	printf("%s\n", s);
+}
+
+// prints Hi!
+
+int main(void)
+{
+	string s = "Hi!";
+	char *p = &s[0];
+	printf("%p\n", p);    // print memory location of first character of string s
+	printf("%p\n", s);    // print memory location of string s
+}
+
+// prints 0x7ffcb4578e5c
+//        0x7ffcb4578e5c
+```
+- Since both memory locations are the same, we can see that underlying string is just an array of chars
+- The printf function uses the %s (for string), although C does not have a string data type, and just starts printing all characters starting from memory location of s, until it hits the null character
+-  [VIDEO STOPPED @ 54:25]
