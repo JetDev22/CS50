@@ -644,7 +644,7 @@ int main(void)
 int main(void)
 {
 	string s = "Hi!";
-	char *p = &s[0];
+	char *p = &s[0];      // &s is an operator. &s[0] is the memory adress of s[0]
 	printf("%p\n", p);    // print memory location of first character of string s
 	printf("%p\n", s);    // print memory location of string s
 }
@@ -654,4 +654,210 @@ int main(void)
 ```
 - Since both memory locations are the same, we can see that underlying string is just an array of chars
 - The printf function uses the %s (for string), although C does not have a string data type, and just starts printing all characters starting from memory location of s, until it hits the null character
--  [VIDEO STOPPED @ 54:25]
+```c
+typedef char *string;
+```
+- This is all there has been in cs50.c to get string datatype
+
+### POINTER ARITHMETIC
+
+- The doube quotes are a special for strings. It lets the compiler know that is not just a character, but a string and automatically stores the sting in memory and adds the null character at the end 
+```c
+#include <stdio.h>
+
+int main(void)
+{
+	char *s = "Hi!"
+	printf("%c\n", s[0]);
+	printf("%c\n", s[1]);
+	printf("%c\n", s[2]);
+}
+// H
+// i
+// !
+```
+- Here we used [0] to indicate we want to print the first character of the string. But char star is basically just the adress of the first character of the string.
+```c
+#include <stdio.h>
+
+int main(void)
+{
+	char *s = "Hi!"
+	printf("%c\n", *s);
+	printf("%c\n", *(s + 1));
+	printf("%c\n", *(s + 2));
+}
+// H
+// i
+// !
+```
+- Since char star points to the adress of the first character only, we can add a byte (here + 1) to it to get the next character of the string.
+- But convention is to use the s[0] syntax, because it makes the code more readable
+```c
+#include <stdio.h>
+
+int main(void)
+{
+	int numbers[] = {4, 6, 8, 2, 7 ,5 ,0};
+	printf("%i\n", *numbers);
+	printf("%i\n", *(numbers + 1));
+	printf("%i\n", *(numbers + 2));
+}
+// 4
+// 6
+// 8
+```
+- The interessting thing here is, that an int is usually 4 bytes (32bits) long, yet I do not have to add 4, 8, 12, 16 to get the next stored int. The compiler will automatically do this, so + 1 here means next memory location or new int. This works for all data types, since we declare the data type beforehand (here for the array), so the compiler knows how many bytes it needs to shift the memory location, to get the next item
+- Note here, that we did not have any star operator, when we declared the array. this is because an array basically only points to its first item. Yet different to strings, there is no null at the end of the array!
+```c
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+	char *s = get_string("s: ");
+	char *t = get_string("t: ");
+
+	if (s == t);
+	{
+		printf("same");
+	}
+	else
+	{
+		printf("different");
+	}
+}
+
+// The output will always be different
+```
+- The reason why you cannot compare two strings with each other and expect to get them to assess equal (hi == hi), but always come out as false, is the fact, that char star only points to a memory adress, and those will never be the same, for two different strings (even though they have the same characters)
+![image info](./Pictures/pointerString.png)
+
+### DYNAMIC MEMORY ALLOCATION
+
+```c
+#include <cs50.h>
+#include <string.h>
+#include <stdio.h>
+#include <ctype.h>
+
+int main(void)
+{
+	string s = get_string("s: ");    // example input will be hi!
+	string t = s;
+
+	t[0] = toupper(t[0]);
+
+	printf("%s\n", s);
+	printf("%s\n", t);
+}
+
+// Hi!
+// Hi!
+```
+- we created a string with user input, and then copied this string to the variable t. We used toupper function (from ctype.h) to make the first letter of t upper case, yet this seemed to have changed the first letter of s to upper case as well. The reason is, when we declared string t = s, we literally copied the adress of the first character of s, to t. So when we then used toupper, we used it on the first character at that adress, which is linked to both s and t
+- For memory allocation we use to functions:
+	- malloc = memory allocation, we pass how much memory we need, malloc will find the amount and pass you the adress of the first free byte of that requested free space
+	- free = clears the memory, previously allocated by malloc for our use, and makes it available to the computer again
+
+```c
+#include <cs50.h>
+#include <string.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
+
+int main(void)
+{
+	char *s = get_string("s: ");    // example input will be hi!
+	
+	char *t = malloc(strlen(s) + 1); // the null character has to be accounted for manually!!
+	
+	if (t == NULL)   // A possible check if malloc assigned memory, otherwise terminate program
+	{
+		printf("No memory could be allocated");
+		return 1;    // program will quit
+	}
+
+	strcpy(t, s);    // strcpy (from stdlib.h) copies a string, first argument is the new string, second the source string
+
+	if (strlen(t) > 0)  // check if string is not empty, to avoid error
+	{
+		t[0] = toupper(t[0]);
+	}
+
+	printf("%s\n", s);
+	printf("%s\n", t);
+
+	free(t);     // free the memory allocated by malloc up again. Only required for malloc assigned memory
+}
+
+// hi!
+// Hi!
+```
+- no we got some free memory from the function malloc, we assigned the free memory to the variable t and the copied the string s with strcpy into the new memory location. Whatever we do to the string assigned to t, will not change the string s because they are now at two different memory locations
+- NULL is to check if a pointer is valid or not. If malloc fails to allocate memory, it will return NULL, therefore, if we check if t == NULL, this would indicate, that no memory was allocated by malloc
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+	int *x = malloc(3 * sizeof(int));
+}
+```
+- Since int may have different size in bytes on different systems, we can use sizeof() do have the system determine what the sice of one int in memory will be and just multiply this by the amount of ints we want to store
+- Here we assign the returned memory adress, enough for 3 ints, to the pointer x
+- In this example we asked for enough memory to store 3 ints. If we assign 4 or more ints, we cause a buffer-overflow. We demand more memory than previously reserverd for us. Depending on the amount of excess, the program may crash or not. The program will still compile ok, but may crash on execution with a segmentation fault
+- To check a program for memory issues you can run it with valgrind
+```bash
+valgrind ./program
+```
+- valgrind will find memory related issues with you code
+
+### GARBAGE VALUES
+- If you initialize an array, for example of ints, and you do not assign values to it right away, later in the code, when you access this array (without any values assigned to it), there might still be values showing up. This could be garbage values, data left in memory by some other program, that is now showing up in your program
+
+### STACK OVERFLOW
+
+![image info](./Pictures/memoryMap.png)
+- You local variables and functions are stored in the stack. All malloc memory allocations happen in the heap. So the more memory you use by calling malloc and the more local variables and functions you use, the closer they get and you might run out of memory and cause a stack overflow
+
+```c
+int main(void)
+{
+	int x = 1;
+	int y = 2;
+
+	swap(x, y);
+}
+
+void swap(int a, int b)
+{
+	int tmp = a;
+	a = b;
+	b = tmp;
+}
+
+// a and b will be swapped, but x and y remain the same
+```
+- This small should swap the value of a with b, but it does not return anything back to main and leaves the tmp variable in memory, filling up the stack
+```c
+int main(void)
+{
+	int x = 1;
+	int y = 2;
+
+	swap(&x, &y);  //We use the "adress of" operator & and only pass the adress where the int is stored to the swap
+}
+
+void swap(int *a, int *b)
+{
+	int tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+// No swap swapped the values to the memory adresses of x and y, so main will look at this adress and find that x = 2 and y = 1
+```
+- Here we do not pass variables with their values into the swap function, but the pointers to the memory where the value is stored. With this, we use what is already in memory, change it over to each other and have the effect, that we do not have to return anything and the swap happend in memory, so it will be useable in main aswell
