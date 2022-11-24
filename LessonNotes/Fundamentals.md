@@ -762,3 +762,137 @@ int collatz(int n)
 }
 ```
 - The 1 added to the collatz is because we count the steps! Therefore we have to count the steps (+1) for every iteration
+***
+
+***
+# HEXADECIMAL
+***
+- Most western cultures use the deciaml system, aka **base-10**, to represent numeric data
+		**0 1 2 3 4 5 6 7 8 9** 
+- As we know, computers use the binary system, aka **base-2**, to represent numeric (and indeed all data)
+		**0 1**
+- As computer scientists, it's useful to be able to express data the same way the computer does
+- The problem, of course, is that trying to parse a huge chain of 0s and 1s can be quite difficult
+- The hexadecimal system, aka **base-16**, is a much more concise way to express the data on a computer
+		**0 1 2 3 4 5 6 7 8 9 a b c d e f**
+- Hexadecimal makes this mapping easy because a group of **four binary digits (bits)** is able to have 16 different combinations and each of those combinations maps to a single hexadecimal digit
+![image info](./Pictures/hexChart.png)
+- To make it easy for humans to distinguish between the lower numbers in decimal and hexadecimal, hexadecimal numbers are usually written with a preceeding 0x
+	- Decimal 4 is Hexadecimal 0x4
+	- Decimal 7 is Hexadecimal 0x7
+	- Decimal 12 is Hexadecimal 0xC
+- Just like binary has place values (1, 2, 4, 8 ...th place[powers of 2]) and decimal does to (1, 10, 100, 1000...th place[powers of 10]), so does hexadecimal with (1, 16, 256, 4096....th place[power of 16])
+	- 397 in decimal is 3x100 + 9x10 + 1x7 = 397
+	- 0x397 in hexadecimal is 3x256 + 9x16 + 1x7 = 919
+- To convert a binary number to a hexadecimal, group four binary digits (bits) together from right to left. Add a 0 in front of the leftmost binary group if it only gives 3 digits
+![image info](./Pictures/hexBinaryConv.png)
+- Remember hexadecimal is not primarily used to perform calculations, we mostly use it for memory adresses 
+***
+
+***
+# POINTERS
+***
+- Pointers provide an alternative way to pass data between functions. Recall that up to this point, we have passed all data **by value** with one exception. When we pass data by value, we only pass a copy of that data (variable scope)
+- If we use pointers instead, we have the power to pass the actual variable itself. That means that a change that is made in one function **can** impact what happens in a different function
+- Before we dive into what pointers are and how to work with them, it's worth going back to basics and have a look at our computers memory
+- Every file on your computer lives on your disk drive, be it a HDD or SSD
+- Disk drives are just storage space, we can't directly work there. Manipulation and use of data can only take place in RAM, so we have to move the data there
+- Memory is basically a huge array of 8-bit wide bytes
+![image info](./Pictures/memoryFileSize.png)
+- Back to this idea of memory as a big array of byte-sized cells. Recall from our discussion of array, that they not only are useful for storage of information but also for so-called **random access**. We can access individual elements of the array by indicating which index location we want. Similarly each location in memory has an adress
+![image info](./Pictures/memMap1.png)
+- There's only one critical thing to remember as we start working with pointers
+		**POINTERS ARE JUST ADDRESSES**
+- Pointers are adresses to memory, where variables live
+![image info](./Pictures/mindMap.png)
+- We can think of the picture above to get a better understanding of what a pointer is. We have the box k, which we declared can only hold integers. We then put the integer 5 in the box k. Then we create a pointer box pk, that only holds adresses of ints. We then give this pointer box the adress of (&) our integer k
+- A pointer is a data item:
+	- whose value is a memory address (&k)
+	- type describes the data located at that memory address (int* pk)
+- As such, pointers allow data structures and / or variables to be shared among functions
+- The simplest pointer availabe to use in C is the NULL pointer. As you might expect , this pointer points to nothing (a fact which can actually come in handy!)
+- When you create a pointer and you don't set its value immediately, you should **always** set the value of the pointer to NULL
+- You can check whether a pointer is NULL using the equality operator ( == )
+- Another easy way to create a pointer is to simply extract the address of an already existing variable. We can do this with the "address of"-operator ( & )
+- If x is an int-type variable, then &x is a pointer-to-int whose value is the adress of x
+- If arr is an array of doubles, then &arr[i] is a pointer-to-double whose value is the address of the ith element of arr. 
+- An arrays name, then, is actually a pointer to its first element. That is why we can change an array within a function and this change will reflect outside of this function as well!
+- The main purpose of a pointer is to allow us to modify or inspect the location to which it points. We do this by **dereferencing** the pointer
+- If we have a pointer-to-char called pc, then * pc is the data that lives at the memory address stored inside the variable pc
+- Used in this context * is known as the **dereference operator**. It "goes to the reference" and accesses the data at that memory location, allowing you to manipulate it at will. This is just like visiting your neighbour. having their address isn't enough. You need to **go to** the address and only then can you interact with them
+- When you dereference a pointer whose value is NULL you get a **segmentation fault**. Surprisingly this is actually good behaviour. It defends against accidental dangerous manipulation of unknown pointers. That is why we recommend you set your pointers to NULL immediately, if you aren't setting them to a known, desired value
+```c
+int* p;
+```
+- The value of p is an address. We can dereference p with the * operator. If we do, what we'll find at that location is an int
+- One more annoying thing with those * s. They're an important part of both the type name and the variable name
+```c
+int* px, py, pz;    // creates pointer px and to int variables py and pz
+int* pa, *pb, *pc;  // creates three pointer pa, pb and pc
+```
+![image info](./Pictures/pointerSize.png)
+- depending on your system pointer are either 4 or 8 bytes. 4 bytes for 32bit systems and 8 bytes for 64bit systems
+![image info](./Pictures/pointerExample1.png)
+- Here a small example, what does this do?
+	- We dereference, go to the address pointed to by pk and we change what we find. So the integer 5 is changed to 35
+![image info](./Pictures/pointerExample2.png)
+
+***
+
+***
+# DEFINING CUSTOM TYPES
+***
+
+- The C keyword typedef provides a way to create a shorthand or rewritten name for data types
+- The basic idea is to first define a type in the normal way, then alias it to something else
+```c
+typedef <old name> <new name>;
+
+// in cs50.h string was defined this way
+
+typedef char* string;
+```
+
+```c
+struct car
+{
+	int year;
+	char model[10];
+	char plate[7];
+	int odometer;
+	double engine_size;
+}
+
+// To no have to call struct car for every car, we can call it car_t
+
+typedef struct car car_t;
+
+// or you can even create a shorter name from the start
+
+typedef struct car
+{
+	int year;
+	char model[10];
+	char plate[7];
+	int odometer;
+	double engine_size;
+}
+car_t;
+
+// variable declaration with old method
+struct car mycar;
+
+// variable declaration with new method
+car_t mycar;
+
+// field accessing
+mycar.year = 2011;
+mycar.plate = "CS50";
+mycar.odometer = 50505;
+```
+***
+
+***
+# DYNAMIC MEMORY ALLOCATION
+***
+

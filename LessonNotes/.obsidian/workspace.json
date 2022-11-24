@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lesson Notes.md",
+                "file": "Fundamentals.md",
                 "mode": "source",
                 "source": false
               }
@@ -86,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Lesson Notes.md",
+                "file": "Fundamentals.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Lesson Notes.md",
+                "file": "Fundamentals.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Lesson Notes.md"
+                "file": "Fundamentals.md"
               }
             }
           }
@@ -137,7 +137,7 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "d8814a8c12a70dab",
+  "active": "70711e8adc5255a6",
   "lastOpenFiles": [
     "Lesson Notes.md",
     "Fundamentals.md",
