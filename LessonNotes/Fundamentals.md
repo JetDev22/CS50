@@ -896,3 +896,77 @@ mycar.odometer = 50505;
 # DYNAMIC MEMORY ALLOCATION
 ***
 
+- We can use pointers to get access to a block of **dynamically-allocated memory** at runtime
+- Dynamically allocated memory comes from a pool of memory known as the heap
+- Prior to this point, all memory we've been working with has been coming from a pool of memory known as **stack**
+![image info](./Pictures/heapStack.png)
+- We get this dynamically-allocated memory by making a call to the C standard library function **malloc()**, passing as its parameter, the number of bytes requested
+- After obtaining memory for you (if it can), malloc() will return a pointer to that memory location
+- If malloc() **can't** give you memory, it will return NULL
+```c
+// statically obtain an integer
+int x;
+
+// dynamically obtain an integer
+int *px = malloc(sizeof(int));
+
+// get an integer from the user
+int x = GetInt();
+
+// array of floats on the stack
+float stack_array[x];
+
+// array of floats on the heap
+float* heap_array = malloc(x * sizeof(float));
+```
+- Here is the trouble: Dynamically allocated memory is not automatically returned to the system for later use, when the function in which it was created, finishes execution
+- Failing to return memory back to the system when you're finished with its results is a **memory leak** which can compromise your system's performance
+- When you finish working with dynamically-allocated memory, you must **free()** the memory
+```c
+// allocate memory for a 50 character array called word
+char* word = malloc(50 * sizeof(char));
+
+// work with the array word
+
+// when you are done with working with the array
+free(word);
+```
+- **THREE GOLDEN RULES:**
+	1. Every block of memory that you malloc() must subsequently be free()
+	2. Only memory that you malloc() should be free()
+	3. Do not free() a block of memory more than once
+![image info](./Pictures/memExample.png)
+- int m; creates an integer variable m that can store an integer value
+- int* a; creates a pointer variable that can hold an address to an integer
+- int* b = ... creates a memory space of 4 bytes on the heap that can hold an integer and b points to that memory location
+- a = &m; stores the memory address of m in pointer a
+- a = b; now the memory location in b is stored in a aswell, so pointer a points to the memory address that was stored in pointer b
+- m = 10; stores the integer value 10 in the variable m
+- * b = m + 2; gives us 10 + 2 = 12 and that is stored in memory location, that pointer b points to
+***
+
+***
+# CALL STACKS
+***
+- When you call a function, the system sets aside space in memory for that function to do its necessary work. We frequently call such chunks of memory **stack frames** or **function frames**
+- More than one function's stack frame may exist in memory at a given time. If main() calls move(), which then calls direction(), all three functions have open frames but **ony one function will be active at a time**
+- These frames are arranged in a **stack**. The frame for most recently called function is always on the top of the stack
+- When a new function is called, a new frrame is **pushed** onto the top of the stack and becomes the active frame
+- When a function finishes its work, its frame is **popped** off of the stack and the frame immediately below it becomes the new active function on the top of the stack. This function picks up immediately where it left off
+![image info](./Pictures/callStackFact.png)
+- main calls the print function, which in return calls the fact() function with the argument 5
+- fact() checks if the passed argument is equal to 1, if not then it return 5 * fact(5-1) which is basically calling fact(4) and so on
+- Once the argument reaches 1 and fact(1) is called, it returns 1
+- Now the stack pops off the active fact(1) and passes 1 to fact(2)
+- fact(2) gets 1 returned from fact(1) which gives 2 x 1 = 2
+- fact(3) gets 2 returned from fact(2) which gives 3 x 2 = 6
+- fact(4) gets 6 returned from fact(3) which gives 4 x 6 = 24
+- fact(5) gets 24 returned from fact(4) which gives 5 x 24 = 120
+- then 120 is passed to the print function, which then prints 120
+- Printf finished so main is the active frame
+***
+
+***
+# FILE POINTERS
+***
+
