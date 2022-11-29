@@ -970,3 +970,126 @@ free(word);
 # FILE POINTERS
 ***
 
+- The ability to read data from and write date to files is the primary means of storing **persistant data**, data that does not disappear when your program stops running
+- The abstraction of files that C provides is implemented in a data structure known as a **FILE**. Almost universally when working with files, we will be using pointers to them like FILE*.
+- The file manipulation functions all live in stdio.h. All of them accept FILE* as one of their parameters, except for the function **fopen()**, which is used to get a file pointer in the first place
+- Some of the most common file input/ouput (I/O) functions that we'll be working with are:
+	- fopen()
+	- fclose()
+	- fgetc()
+	- fputc()
+	- fread()
+	- fwrite()
+
+### **fopen()**
+- opens a file and returns a file pointer to it
+- always check the return value to make sure you don't get back NULL
+```c
+FILE* ptr = fopen(<filename>, <operation>);
+
+// example
+FILE* ptr1 = fopen("file1.txt", "r");
+```
+- "r" allows us to read the content of file1.txt
+- "w" allows us to write information to file1.txt, if the opened file already contains data, this data will be lost and overwritten with the new written data
+- "a" allows us to append data to file1.txt and add it to the existing data, nothing will be overwritten
+
+### **fclose()**
+- closes the file pointed to by the given file pointer
+```c
+fclose(<file pointer>);
+
+//example
+fclose(ptr1);
+```
+
+### **fgetc()**
+- Reads and returns the next character from the file pointed to
+- Note: The operation of the file pointer passed in as a parameter must be "r" for read or you will suffer an error
+```c
+char ch = fgetc(<file pointer>);
+
+// example
+char ch = fgetc(ptr1);
+```
+- The ability to get a single character from files, if wrapped in a loop, means we could read all the characters from file and print them to the screen, one-by-one essentially:
+```c
+char ch;
+while((ch = fgetc(ptr)) != EOF)
+	printf("%c", ch);
+```
+- We might put this in a file called cat.c, after the Linux command "cat" which essentially does just this
+- EOF is defined in stdio.h and is the END OF FILE character
+
+### **fputc()**
+- Writes or appends the specified character to the pointed-to file
+- Note: The operation of the file pointer passed in as parameter must be "w" for write or "a" for append, or you will suffer an error
+```c
+fputc(<character>, <file pointer>);
+
+// example
+fputc('A', ptr2;
+```
+- No we can read characters from files and write characters to them. Let's extend our previous example to copy one file to another, instead of printing to the screen
+```c
+char ch;
+while((ch = fgetc(ptr)) != EOF)
+	fputc(ch, ptr2);
+```
+- We might put this in a file called cp.c, after the linux command "cp" which essentially does this job
+
+### **fread()**
+- Reads "qty" units of size "size" from the file pointed to and stores them in memory in a buffer (usually an array) pointed to by "buffer"
+- Note: The operation of the file pointer passed in as a parameters must be "r" for read, or you will suffer an error
+```c
+fread(<buffer>, <size>, <qty>, <file pointer>);
+
+// example for int array 
+int arr[10];
+fread(arr, sizeof(int), 10, ptr);
+
+// example with use of malloc
+int* arr = malloc(sizeof(int) *10);
+fread(arr, sizeof(int), 10, ptr);
+
+// example to store just one character similiar to fgetc()
+char c;
+fread(&c, sizeof(char), 1, ptr);
+```
+- The command looks a bit complex but in essence it is similar to fgetc() but allows us to get more than just one character at a time:
+	- buffer is the pointer to the location, where we are going to store the information
+	- size is the parameter of how large each unit of information will be
+	- qty is how many units of information we want to aquire
+	- file pointer is where we get this information from
+- Note that for arrays we can just use the name of the array as buffer, because an array is just a pointer, pointing to the address of its first item. But to point to a variable (here the example char c), we have to use the "address of" operator & with the variable name
+
+### **fwrite()**
+- Writes "qty" units of size "size" to the file pointed to by reading them from a buffer (usually an array) pointed to by "buffer"
+- Note: The operation of the file pointer passed in as parameter must be "w" for write or "a" for append, or you will suffer an error
+```c
+fwrite(<buffer>, <size>, <qty>, <file pointer>);
+
+// example with array
+int arr[10];
+fwrite(arr, sizeof(int), 10, ptr);
+
+// example using malloc
+int* arr = malloc(sizeof(int) * 10);
+fwrite(arr, sizeof(int), 10, ptr);
+
+// example storing a single character
+char c;
+fwrite(&c, sizeof(char), 1, ptr);
+```
+
+- There are other useful functions in stdio.h for you to work with as well. A list of examples are:
+	- fgets() reads a full string from a file
+	- fputs() writes a full string to a file
+	- fprintf() writes a formatted string to a file
+	- fseek() allows you to rewind or fast-forward within a file
+	- ftell() tells you at what byte position you are within a file
+	- feof() tells yoi whether you've read to the end of a file
+	- ferror() indicates whether an error has occured in working with a file
+***
+
+***
