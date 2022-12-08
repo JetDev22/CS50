@@ -858,6 +858,6 @@ void swap(int *a, int *b)
 	*b = tmp;
 }
 
-// No swap swapped the values to the memory adresses of x and y, so main will look at this adress and find that x = 2 and y = 1
+// Now swap swapped the values to the memory adresses of x and y, so main will look at this adress and find that x = 2 and y = 1
 ```
 - Here we do not pass variables with their values into the swap function, but the pointers to the memory where the value is stored. With this, we use what is already in memory, change it over to each other and have the effect, that we do not have to return anything and the swap happend in memory, so it will be useable in main aswell

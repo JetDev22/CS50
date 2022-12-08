@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Fundamentals.md",
-                "mode": "source",
+                "file": "Lesson Notes.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 245.5,
-    "collapsed": true
+    "width": 245.5
   },
   "right": {
     "id": "cbc6f1db56440ac4",
@@ -86,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Fundamentals.md",
+                "file": "Lesson Notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Fundamentals.md",
+                "file": "Lesson Notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Fundamentals.md"
+                "file": "Lesson Notes.md"
               }
             }
           }
@@ -137,10 +136,10 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "70711e8adc5255a6",
+  "active": "d8814a8c12a70dab",
   "lastOpenFiles": [
-    "Lesson Notes.md",
     "Fundamentals.md",
+    "Lesson Notes.md",
     "CommandLine.md",
     "Pictures/bigOgraph.png",
     "bigOgraph.svg",
