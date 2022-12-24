@@ -865,3 +865,405 @@ void swap(int *a, int *b)
 ***
 # Lesson 5 - Data Structures
 ***
+- Until now we used arrays to store a defined number of elements (like ints) and gave it a finite amount of memory to store our values. If we wanted to add to that array, we might run into the issue that at the end of the array in memory there could be some other used data. That means we cannot extend the array at that memory location. Instead we would have to copy the array to a free memory location that gives us enough space to add our new elements.
+- This results in first copying the existing array to that new memory location, giving us a runtime of O(n), because we have to itterate over every element to copy the arrays content to the new location.
+- If we then wanted to add a new element to our sorted array, and the element would have to be somewhere inside the array (and not the beginning or the end), we have to first utilise a search algorithm to find the spot, where we want to copy the new item. That results in a runtime of O(log n).
+```c
+// Classic way to create a list of three elements (memory comes from stack)
+
+#include <stdio.h>
+
+int main(void)
+{
+	int list[3];
+	list[0] = 1;
+	list[1] = 2;
+	list[2] = 3;
+
+	for (int i = 0; i < 3; i++)
+	{
+		printf("%i\n", list[i]);
+	}
+}
+
+
+// Create the same list with dynamic memory allocation (memory comes from heap)
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+	// dynamically allocate an array of size 3
+	int *list = malloc(3 * sizeof(int));
+	
+	// check if memory allocated, if not quit
+	if (list == NULL)
+	{
+		printf("No memory allocated\n");
+		return 1;
+	}
+	// Assign 3 numbers to that array
+	list[0] = 1;
+	list[1] = 2;
+	list[2] = 3;
+
+	// Resize array to fit 4 numbers
+	int *tmp = realloc(list, 4 * sizeof(int));
+
+	// check if memory allocated, if not quit
+	if (list == NULL)
+	{
+		printf("No memory allocated\n");
+		return 1;
+	}
+	
+	// Add 4th number to new array
+	list[3] = 4;
+
+	// free memory of new array
+	free(list);
+	return 0;
+}
+```
+- realloc will grow an existing array to fit defined new number of items. If the memory allocated to the original array can not be grown larger, because the memory right after is already full, it will automatically assign a new memory space of specified size and will copy the contents of the original memory to the new memory location for you
+
+***
+### SHORT REVIEW
+
+struct
+A keyword in C that lets you invent your own structure, your own variable in conjunction with typedef, allowing you to constract a "person" for example that hast a Name, Age ... You encapsulate multiple data
+```c
+typedef struct    //tells the compiler it is a structure
+{
+	string name;
+	string number;
+}
+person;            // name of datatype
+
+person people[2];  // new array of type person and size 2
+people[0].name = "Thomas"
+people[0].number = "09953-2211"
+```
+
+.
+The dot notation allows you to access a field inside a struct. As seen above, we can access the person name by person[0].name
+
+*
+We have seen it to declare a pointer. For example as int * age. Or it was used as the dereference operator We used it without an int or anything infront so by using just * age we go to the address of that variable.
+
+***
+### Linked List
+- to avoid to move the contents of an array or list everytime the adjacent memory is not free, so we cannot add more to the list unless moving the existing list to a new memory location, we can use a linked list. Here we just point to the location of the content, which may exist anywhere in memory and does not have to be adjacent to each other
+
+![image info](./Pictures/linkedList.png)
+![image info](./Pictures/linkedList2.png)
+- Each item in the list points to its next item. The items do not have to be next to each other in memory, that is way for every item we save in the list, we also save the memory address of the next item. For the last item we just store 0x0 or NULL to indicate the end of the list
+- Since each of the stored items encapsulates more information (the memory address of the next item), we can refer to each item as NODE
+- To construct the node as our datatype:
+```c
+typedef struct node
+{
+	int number;
+	struct node *next;
+}
+node;
+
+// Since we are using node in the struct before we declare it, we have to write the code in the way as shown above. We predeclare it with struct node, so the compiler knows about node, before he reads it in the {}. Otherwise the compiler will cause an error (compare to struct person above to see the difference)
+```
+- To construct a linked list in C you declare a variable list as below, that itself stores the adress of a node, since it only needs the adress of the beginning because every node points to the next one
+```c
+node *list = NULL;
+// here we assign null just to have a known value and avoid having a garbage value showing up
+```
+- To construct a new node to add to the list, we construct it with malloc
+```c
+node *n = malloc(sizeof(node));
+
+// if malloc allocated memory, assign number 1 to node (old pointer way)
+if (n != NULL)
+{
+	(*n).number = 1;
+	(*n).next = NULL;
+}
+
+// if malloc allocated memory, assign number 1 to node (new pointer syntax)
+if (n != NULL)
+{
+	n->number = 1;
+	n->next = NULL;
+}
+```
+- The last step is to add the adress of the first node to the list pointer
+```c
+list = n;
+```
+![image info](./Pictures/linkedList3.png)
+- Now we do the same thing we did with the array based list in the beginning, but with a linked list:
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+// declare the datatype node
+typedef struct node
+{
+	int number;
+	struct node *next;
+}
+node;
+
+
+// main program
+int main(void)
+{
+	// List of size 0
+	node *list = NULL;
+
+	// Create memory for node
+	node *n = malloc(sizeof(node));
+
+	// If no memory allocated, quit program
+	if (n == NULL)
+	{
+		return 1;
+	}
+	
+	// assign values to node
+	n->number = 1;
+	n->next = NULL;
+
+	// Update list to point to first node
+	list = n;
+
+	// Add another number to the list (n already delcrared above, so we can reuse it)
+	n = malloc(sizeof(node));
+	if (n == NULL)
+	{
+		free(list);
+		return 1;
+	}
+
+	n->number = 2;
+	n->next = NULL;
+
+	// Update list to have the first node to point to second node
+	list->next = n;
+
+	// Add a third number to the list (n already delcrared above, so we can reuse it)
+	n = malloc(sizeof(node));
+	if (n == NULL)
+	{
+		// here we first have to free node 2, and then node 1, because to access node 2 we need node 1
+		free(list->next);
+		free(list);
+		return 1;
+	}
+
+	n->number = 3;
+	n->next = NULL;
+
+	// Update second node pointer to third node
+	list->next->next = n;
+
+
+
+	// To print each number of our linked list, we can no longer use [i] to iterate through the list
+	for (node *tmp = list; tmp != NULL; tmp = tmp->next)
+	{
+		printf("%i\n", temp->number);
+	}
+
+
+	// At the end we have to free all memory assoicated with our linked list
+	while (list != NULL)
+	{
+		// We point at the second node, so we can delete the first
+		node *tmp = List->next;
+		free(list);
+		// Now we have list point at second node, so next loop we can point at 3rd node and delete the 2nd, which is no the 1st
+		list = tmp;
+	}
+	return 0;
+}
+```
+
+![image info](./Pictures/linkedList4.png)
+- This means, when we have to look up a value, in worst case we will have a O(n) runtime, because we only see one item at a time. If we want to insert an item and do not care about the list being sorted, we can insert it at the beginning and have a runtime of O(1). But if we want to insert the item at the end it will also have a runtime of O(n)
+***
+### Binary Search Tree
+- instead of laterally linking items together in memory, we could add a second dimension to it called a tree
+- In binary search in a sorted array, we could find the middle of the array by doing simple arithmatic (items in array / 2 round to next number). This way we got a left and a right half to perform our search on.
+![image info](./Pictures/binarySearchTree.png)
+- No given the dynamic memory allocation we can use by now, what if we keep the basic idea of binary search, but utilise nodes to do the search
+![image info](./Pictures/binarySearchTree2.png)
+- So the idea is to create a node, but instead of creating a pointer to next, we will create a pointer to the left and right
+```c
+typedef struct node
+{
+	int number;
+	node *left;
+	node *right;
+}
+node;
+```
+- But what is the benefit? Suppose we want to search for the number 3. So the tree begins with the root node, the parent, which is 4 in the picture above. Because it is still sorted, I can assume that if the number I am looking for is smaller than the parent, I have to go left in the tree. The same applies when I reach 2. Since we are looking for 3, it is bigger than 2, so this time I have to look right and there we find 3
+- The runtime is O(log n) but the tradeoff is that every number is now represented with a node, containing not just the number, but also two pointers for left and right. As usual you trade time vs memory size
+```c
+// Implement a list of numbers as binary search tree
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Construct the node
+typedef struct node
+{
+	int number;
+	struct node *left;
+	struct node *right;
+}
+node;
+
+// Function Prototypes 
+void free_tree(node *root);
+void print_tree(node *root);
+
+int main(void)
+{
+	// Tree of size 0
+	node *tree = NULL;
+
+	// Add number to list
+	node *n = malloc(sizeof(node));
+	if (n == NULL)
+	{
+		return 1;
+	}
+
+	n->number = 2;
+	n->left = NULL;
+	n->right = NULL;
+	tree = n;
+
+	// Add another number to list
+	n = malloc(sizeof(node));
+	if (n == NULL)
+	{
+		return 1;
+	}
+
+	n->number = 1;
+	n->left = NULL;
+	n->right = NULL;
+	tree->left = n;
+
+	// Add another number to list
+	n = malloc(sizeof(node));
+	if (n == NULL)
+	{
+		return 1;
+	}
+
+	n->number = 3;
+	n->left = NULL;
+	n->right = NULL;
+	tree->right = n;
+
+	// Print tree
+	print_tree(tree);
+
+	// Free tree
+	free_tree(tree);
+	
+}
+
+void print_tree(node *root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	print_tree(root->left);
+	printf("%i\n", root->number);
+	print_tree(root->right);
+
+
+void free_tree(node *root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	free_tree(root->left);
+	free_tree(root->right);
+	free(root);
+}
+```
+- If you want to implement binary search in a tree you could do it as follows. You input the root of the tree and the number you are looking for, the result will be a boolean
+```c
+// prototype for a search function in a binary search tree
+bool search(node *tree, int number)
+{
+	if (tree == NULL)
+	{
+		return false;
+	}
+	else if (number < tree->number)
+	{
+		return search(tree->left, number);
+	
+	else if (number > tree->number)
+	{
+		return search(tree->right, number);
+	}
+	else (number == tree->number)
+	{
+		return true;
+	}
+```
+- A binary search tree has to fullfill following conditons
+	- No child to the left of the parent (root) can be bigger than the root
+	- No child to the right of the parent (root) can be smaller than the root
+- The runtime for a binary search tree is O(log n) if left and right tree are balanced. If you create a tree with only a right side the runtime becomes O(n) because you cannot half the problem into left and right, but have to run through the entire right tree.
+***
+### Hash Tables
+- Hash tables are like the swiss army knife of data structures, since they are so frequently used, because they allow you to use keys associated with values
+- A hash table is basically an array, that stores linked lists
+![image info](./Pictures/hashTable.png)
+- We can construct a hash table with code like this
+```c
+typedef struct node
+{
+	// array to store a name. The + 1 is to account for the null character
+	char word[LONGEST_WORD + 1];
+	struct node *next;
+}
+node;
+
+node *hashtable[numberOfItems];
+```
+- Generally we take user input (names, strings, numbers) and have it run through a hash function, where the function determines where the input will be stored (will it be stored alphabetical, by age, by size ....)
+- Technically speaking a hash table search will have a runtime of O(n) because depending on your hash table, if you for example sort the names by alphabet and the group of names you are sorting happen to all start with a, you have to traverse the linked list in the a bucket of your hash table, so you are searching in a linked list and therefore have to iterate through all items in the a chain. But in reality hash tables are faster than a singly linked list
+***
+### Tries [pronounced try]
+- Short for retrieval
+- A trie is a tree that gives us constant time lookup, even for massive datasets
+- You essentially create a tree out of arrays
+- An example would be to look at each letter of a name. The root of the tree is an array of every letter of the alphabet. So you take the first letter of the given name and enter the root array, the second letter would than be pointing to a second array and so on ... once the last letter is reached, a boolean may indicate, that we have indeed found a complete name (here green)
+![image info](./Pictures/tries.png)
+- As we can see, some names share a common letter, that means we can save space, compared to storing each name on its own
+```c
+typedef struct node
+{
+	bool is_word;
+	struct node *children[SIZE_OF_ALPHABET];
+}
+node;
+```
+- The runtime of a tries will be O(1), because no matter how many names are stored, you will only have as many steps, as there are letters in the name. So even for a trillion stored names, you will only go 8 steps to find Hermione
+***
+### Abstract Data Structures
+QUEUES
+A queues is a data structure that uses FIFO (first in first out) to make sure the queue is done in order. To implement a que you have to implement two functions enqueue and dequeue. To create a queue you could use an array, yet there would be a finite size and elements at some point could no longer join the queue and you would encounter an error. A better solution for this, would be to use a linked list. A growing queue can just add to the linked list and make sure all elements can join the queue. The downside is that the linked list would grow in size and take up more memory.
+
+STACKS
+A stack is litteraly things stacked on top of each other (remember recursion) and they follow LIFO (last in first out). This again could be represented by an array or a linked list. The two functions needed for a stack are push (add to stack) and pop(remove from stack). 
