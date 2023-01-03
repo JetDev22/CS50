@@ -1053,7 +1053,7 @@ int main(void)
 	n = malloc(sizeof(node));
 	if (n == NULL)
 	{
-		// here we first have to free node 2, and then node 1, because to access node 2 we need node 1
+	// here we first have to free node 2, and then node 1, because to access node 2 we need node 1
 		free(list->next);
 		free(list);
 		return 1;

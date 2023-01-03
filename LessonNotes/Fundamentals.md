@@ -1093,3 +1093,434 @@ fwrite(&c, sizeof(char), 1, ptr);
 ***
 
 ***
+# DATA STRUCTURES
+***
+- By this point we've now examined four different ways to store sets of data:
+		- Arrays
+		- Linked Lists
+		- Hash Tables
+		- Tries
+- There are even some variations on these (trees and heaps, quite similar to tries, stacks and queues quite similar to arrays or linked lists, etc). but this will generally cover most of what we're looking at in C
+
+## Arrays
+```c
+int truthable[3];
+truthable[0] = 1;
+truthable[1] = 5;
+truthable[2] = 3;
+```
+- Insertion is bad - lots of shifting to fit an element in the middle
+- Deletion is bad - lots of shifting after removing an element
+- Lookup is great - random access, constant time
+- Relatively easy to sort
+- Relatively small size-wise
+- Stuck with a fixed size, no flexibility
+
+## Linked Lists
+![image info](./Pictures/linkedList4.png)
+- Insertion is easy - just tack onto the front
+- Deletion is easy - once you find the element
+- Lookup is bad - have to rely on linear search
+- Relatively difficult to sort - unless you're willing to compromise on super fast insertion and instead sort as you construct
+- Relatively small size-wise (not as small as arrays though)
+
+## Hash Tables
+![image info](./Pictures/hashTable.png)
+- Insertion is a two-step process - hash, then add
+- Deletion is easy - once you find the element
+- Lookup is on average better than with linked lists, because you have the benefit of a real-world constant factor
+- Not an ideal data structure if sorting is the goal - just use an array
+- Can run the gamut of size
+
+## Tries
+![image info](./Pictures/tries.png)
+- Insertion is complex - alot of dynamic memory allocation, but gets easier as you go
+- Deletion is easy - just free a node
+- Lookup is fast - not quite as fast as an array, but almost
+- Already sorted - sorts as you build in almost all situations
+- Rapidly becomes huge, even with very little data present, not great if space is at a premium
+***
+
+***
+# STRUCTURES
+***
+- Structures provide a way to unify several variables of different types into a single, new variable type which can be assigned its own type name
+- We use structures (structs) to group together elements of a variety of data types that have a logical connection (nodes for example)
+- Think of structures as "super-variables"
+```c
+struct car
+{
+	int year;
+	char model[10];
+	char plate[7];
+	int odometer;
+	double engine_size;
+};
+```
+- Once we have defined a structure, which we typically do in a seperate .h file or atop our programms outside of any functions, we have effectively created a new type
+- That means we can create variables of that type using the familiar syntax
+- We can also access the various fields (also known as members) of the structure, using the dot operator
+```c
+// variable declaration
+struct car mycar;
+
+// field accessing
+mycar.year = 2011;
+strcpy(mycar.plate, "CS50");
+mycar.odometer = 50505;
+```
+- Here you can see we use strcpy to assign a string to mycar.plate. Remember we can not assigne a string to a variable, we have to copy it into the variable
+- Structures, like variables of all other data types, do not need to be created on the stack. We can dynamically allocate structures at run time if our programm requires it
+- In order to access the fields of our structures in that situation, we first need to dereference the pointer to the structure and then we can access its field
+![image info](./Pictures/memoryMap.png)
+```c
+// variable declaration
+struct car *mycar = malloc(sizeof(struct car));
+
+// field accessing
+(*mycar).year = 2011;
+strcpy((*mycar).plate, "CS50");
+(*mycar).odometer = 50505;
+```
+- This is a little annoying and so as you might expect, there is a shorter way!
+- The arrow operator (->) makes this process easier. It's an operator that does two things back-to-back:
+		- First, it dereferences the pointer on the left side of the operator
+		- Second, it accesses the field on the right side of the operator
+```c
+// variable declaration
+struct car *mycar = malloc(sizeof(struct car));
+
+// field accessing
+mycar->year = 2011;
+strcpy(mycar->plate, "CS50");
+mycar->odometer = 50505;
+```
+***
+
+***
+# SINGLY-LINKED LIST
+***
+- So far in the course we've only had one kind of data structure for representing collections of like values. Structs give us "containers" for holding variables of different types
+- Arrays are great for element lookup, but unless we want to insert at the very end of the array, inserting elements is quite costly - remember insertion sort?
+- Arrays also suffer from a great inflexability - what happens if we need a larger array than we thought and initially declared (int array[5])?
+- Through clever us of pointers, dynamic memory allocation and structs, we can put pieces together to develop a new kind of data structure that gives us the ability to grow and shrink a collection of like values to fit our needs
+- We call this combination of elements, when used in this way a linked list
+- A linked list node is a special kind of struct with two members:
+		- Data of some data type (int, char, float ...)
+		- A pointer to another node of the same type
+- In this way, a set of nodes together can be thought of as forming a chain of elements that we can follow from beginning to end
+```C
+typedef struct sllist
+{
+	VALUE val;
+	struct sllist* next;
+}
+sllnode;
+```
+- Note here that we initially point to the next node as sllist. We ultimately call the node sllnode, but we can not use the name, until we declare it at the end of the struct. So therefore the next pointer is called struct sslist (self referencial data type). Also note the VALUE type is only a psuedo code placeholder for int, float ... this is not a real data type!
+- In order to work with linked lists effectively, there are a number of operations that we need to understand:
+
+### Create a linked list when it does not already exist
+***
+- Create a linked list
+```c
+// Construct the datatype for our linked list
+typedef struct sllist
+{
+	VALUE val;
+	struct sllist* next;
+}
+sllnode;
+
+// main program
+int main(void)
+{
+	// List of size 0
+	sllnode *list = NULL;
+```
+- Dynamically allocate space for a new sllnode
+```c
+	// Create memory for node
+	sllnode *n = malloc(sizeof(sllnode));
+	```
+- Check to make sure we didn't run out of memory while allocating memory for node
+```c
+	// If no memory allocated, quit program
+	if (n == NULL)
+	{
+		return 1;
+	}
+```
+- Initialize the nodes VALUE field
+```c
+	// assign values to node
+	n->VALUE = 6;
+	```
+- Initialize the node's next field
+```c
+	// First node, therefore no pointer yet, so NULL
+	n->next = NULL;
+```
+- Return a pointer to the newly created sllnode
+```c
+	// Update list to point to first node
+	list = n;
+	```
+
+
+### Search through a linked list to find an element
+***
+- Now lets say we already have a large chain of nodes in our singly linked list and now we want to find something and create a function that returns true or false, if a given value exists or not
+- A function prototype in pseudo code might look like this
+```c
+bool find(sllnode *head, VALUE val);
+```
+- Here we pass two arguments to the find function. The first is a pointer to the first element in our linked list. This pointer is something you should always keep track of and maybe even put in a global variable (variable declared outside of main{}). 
+- The first step is to create a traversal pointer to the list's head (first element). We do this. It is always better to duplicate the first element pointer of a list and work with the duplicate, than the original, to avoid altering it or breaking it.
+```c
+// traversal pointer for example above
+trav = n;
+```
+- Note that we did not have to malloc memory for trav. This is because the memory for n already exists, all we do is create a second pointer, called trav, to that existing memory location
+- Second step is to compare if the VALUE field at that node is equal to the one we passed in the function. If yes, we return true, if not we travers to the next node or until we hit NULL (end of the list). This is linear search
+![image info](./Pictures/sllist0.png)
+- If the node value is not what we are looking for, we move to the next node by saying
+```c
+trav = trav->next;
+```
+- Since we traverse from one node to the next, we do not keep track where we are in relation to the first node. We always go to next. This is one of the downsides of a linked list. In contrast to an array, where we can specify each location by array[2] ... we do not have that kind of random access to any element in a linked list
+- As soon as trav->next equals NULL, we no we are at the end of the linked list
+
+### Insert a new node into the linked list
+***
+- If we want to add an element (node) to the list, we can again construct a function in pseudo code, where we pass in two arguments. First the pointer to the first element and whatever value we want to add to the list
+```c
+sllnode *new(sllnode *head, VALUE val);
+```
+- First we need to allocate space for a new sllnode
+```c
+// Add another number to the list (n already delcrared above, so we     can reuse it)
+	n = malloc(sizeof(sllnode));
+	```
+- Check to make sure we didn't run out of memory
+```c
+	if (n == NULL)
+	{
+		free(list);
+		return 1;
+	}
+```
+- Populate and insert the node at the beginning of the linked list. The reason why we want to add the new node at the beginning of the list is as follows. We can not track where in the linked list we are, so if we wanted to insert the item at the end of the list, we would have to traverse throughout the list to find the end. The runtime of that would be O(n). But we do have a pointer to the beginning of the list (head), which is much faster
+```c
+	// First set value and have next point to current head of list
+	n->VALUE = 2;
+	n->next = list;
+```
+- Return a pointer to the new head of the linked list
+```c
+	// Update head of the list to be just created node
+	list = n;
+```
+- Lets visualize this. Here we have a linked list and we want to insert 12 into the list
+![image info](./Pictures/sllist1.png)
+- To insert the value 12 at the beginning of the list, we first malloc memory for our new node malloc(sizeof(sllnode)) and insert the value 12
+![image info](./Pictures/sllist2.png)
+- Now we have reached a decision point. Which pointer should we move first? Should the "12" node be the new head of the linked list, since it now exists or should we connect it to the first node? This is one of the trickiest things with linked lists. Order matters!
+![image info](./Pictures/sllist3.png)
+- If we first have list point to the new node we created, how do we tell the new head to point to the "15"? We seem to have lost all reference to point to "15". So we literally orphaned the rest of the list, by making "12" the new head of the list.
+![image info](./Pictures/sllist4.png)
+- The solution is to have the "12" next pointer, to point to the old head of the list first, and then have list point to "12". With singly linked list we always want to connect the new element first with the rest of the list and only then we have it be the head
+
+### Delete a single element from a linked list
+***
+- To delete a single node is a bit tricky. In order to delete a node, we need to have the previous node point to the node after the one we want to delete, in order not to orphan the rest of the list. But singly linked lists do not provide us with a way to go backwards
+- This is a topic for doubly linked lists (look below)
+
+### Delete an entire linked list
+***
+- What if we want to delete an entire linked list. Since we malloced all the space for it, at the end of our program we need to free all that memory again
+- A function prototype in pseudo code to delete a linked list might look something like this
+```c
+void destroy(sllnode *head);
+```
+- The steps in that function might be
+	- if you have reached a null pointer, stop
+	- Delete the rest of the list
+	- Free the current node
+![image info](./Pictures/sllist5.png)
+- To the destroy function we pass in the pointer list. Since list does not point to a node with a NULL pointer, we recursively pass in the list->next pointer to destroy
+```c
+list = list->next;
+destroy(list);
+```
+- So now the delete of "12" is frozen (on the stack) and we look at "15". This again has no NULL pointer so we again call destroy(list) and delete "15" is also added to the stack and so on until we reach "10" that is not a NULL pointer, but contains a NULL pointer. Now list points at the NULL pointer of "10". 
+![image info](./Pictures/sllist6.png)
+- Now everything is recursively deleted from the stack by freeing the current node (first "15", then "13" until we reach the head of the list "12")
+```c
+free(list);
+```
+- So the code could look somehting like this in C
+```C
+void destroy(sllnode *head)
+{
+	if (sllnode *head == NULL)
+	{
+		free(sllnode *head
+			return;
+	}
+
+	list = list->next;
+	destroy(list);
+}
+```
+***
+
+***
+# DOUBLY-LINKED-LIST
+***
+- Singly linked lists really extend our ability to collect and organize data, but they suffer from a crutial limitation. We can only ever move in one direction through the list
+- Consider the implication that would have for trying to delete a single node (for that we need the previous node point to the one after the one we want to delete)
+- A doubly-linked list, by contrast, allows us to move forward and backward through the list, all by simply adding one extra pointer to our struct definition
+- Whenever you know you will be required to delete single nodes from your list, you should always consider using a doubly linked list. In contrast if you know you will not be required to delete single nodes, you can use a singly linked list and have to benefit of it being less memory intense than a doubly linked list
+```C
+typedef struct dllist
+{
+	VALUE val;
+	struct dllist *prev;
+	struct dllist *next;
+}
+dllnode;
+```
+- Almost all operations discussed in for singly linked list are true for doubly linked lists as well. The only exceptions are Insert and Delete of a single node
+
+### Insert a new node into a doubly linked list
+***
+- We can create a psuedo code function that takes two arguments, the head of the list and a new value and returns a new node
+```c
+dllnode * insert(dllnode * head, VALUE val);
+```
+- First we need to allocate space for a new dllnode
+```c
+// Add another number to the list (n already delcrared above, so we     can reuse it)
+	n = malloc(sizeof(dllnode));
+	```
+- Check to make sure we didn't run out of memory
+```c
+	if (n == NULL)
+	{
+		free(list);
+		return 1;
+	}
+```
+- Populate and insert the node at the beginning of the linked list. The reason why we want to add the new node at the beginning of the list is as follows. We can not track where in the linked list we are, so if we wanted to insert the item at the end of the list, we would have to traverse throughout the list to find the end. The runtime of that would be O(n). But we do have a pointer to the beginning of the list (head), which is much faster
+```c
+	// Set new value
+	n->VALUE = 2;
+
+	// Fix the prev pointer of the old head of the linked list
+	n->next = list;
+	n->prev = NULL;
+	list->prev = n;
+```
+- Return a pointer to the new head of the linked list
+```c
+	// Update head of the list to be just created node
+	list = n;
+	```
+![image info](./Pictures/dllist0.png)
+- Again lets visualize the problem. We want to add "12" to our doubly linked list. We again have to carefull in what order we change the pointers, not to orphan our list
+- We first have to set the pointers for the "12" node, before we do anything else. So we have "12" next point to "15" and "12" prev to NULL
+![image info](./Pictures/dllist1.png)
+- Now we have to change the "15" prev pointer to point to "12" and finally have list point at the new head of the list, which is "12"
+
+### Delete a node from a doubly linked list
+***
+- We can create a function prototype that takes as argument only the node, that should be deleted
+```c
+void delete(dllnode *target);
+```
+- To do this we have to fix the surrounding nodes pointers to skip over the target and then we free the target node
+![image info](./Pictures/delNode0.png)
+- In this example we want to delete the node marked with x
+- First we need to have "9" next point to "10" instead of "13"
+- Then we need to point "10" prev to "9"
+```c
+node9->next = node13->next;
+node10->prev = node13->prev;
+```
+
+![image info](./Pictures/delNode1.png)
+
+- Linked lists of both the singly and doubly linked varieties, support extremly efficient insertion and deletion of elements. In fact these operations can be done in constant time
+- What's the downside? Remember how we had to find an element? We've lost the ability to randomly access list elements (compared to arrays). Accessing a desired element may now take linear time
+***
+
+***
+# HASH TABLES
+***
+- Hash tables combine the random access ability of an array with the dynamism of a linked list
+- This means (assuming we define our hash table well):
+	- Insertion can start to tend toward O(1)
+	- Deletion can start to tend toward O(1)
+	- Lookup can start to tend toward O(1)
+- We're gaining the advantage of both types of data structure, while mitigating the disadvantages
+- To get this performance upgrade, we create a new structure whereby when we insert data into the structure, the data itself gives us a clue about where we will find the data, should we need to later look it up
+- The trade off is that hash tables are not great at ordering or sorting data, but if we don't care about that, then we're good to go
+- A hash table amounts to a combination of two things with which we're quite familiar
+	- First, a hash function, which returns an nonnegative integer value called a hash code
+	- Second, an array capable of storing data of the type we wish to place into the data structure
+- The idea is that we run our data through the hash function and then store the data in the element of the array represented by the returned hash code
+![image info](./Pictures/hash0.png)
+- So if we want to store the string "John" in our hash table, we run the string through our hash function and get the int 4. To check if a string is in the array, we pass the string through the hash function, get an integer, look at hashtable[x] and see if the string is there
+- How to define a hash function? Really no limit to the number of possible hash functions
+- A good hash function should:
+	- Use only the data being hashed
+	- Use all of the data being hashed
+	- Be deterministic (everytime we pass the exact same piece of data into the hash function, we always get the same exact hash code out. So do not use random numbers!)
+	- Uniformly distribute data
+	- Generate very different hash codes for very similar data
+- An example of a hash function would be the following. It takes a string and adds all its letter's ascii values together and form sum until the Null value at the end of a string is reached. In the sum is compared against the maximum allowed size of the hash table array
+```c
+usinged int hash(char *str)
+{
+	int sum = 0;
+	for (int j = 0; str[j] != '\0'; j++)
+	{
+		sum += str[j];
+	}
+	return sum % HASH_MAX;
+}
+```
+- Generally you should find and use hash function on the internet. If you use them be sure to give credit and cite the source of your hash function
+![image info](./Pictures/hash1.png)
+- Now a problem could now be that we can only store one string at a time, because the sum of Paul and Ringo is the same
+- A collision occurs when two pieces of data, when run through the hash function, yield the same hash code
+- Presumably we want to store both pieces of data in the hash table, so we shouldn't simply overwrite the data that happend to be placed in there first
+- We need to find a way to get both elements into the hash table while trying to preserve quick insertion and lookup
+
+### Resolving collisions with "Linear Probing"
+- In this method, if we have a collision, we try to place the data in the next consecutive element in the array (wrapping around to the beginning if necessary) until we find a vacancy
+- That way, if we don't find what we're looking for in the first location, at least hopefully the element is somewhere nearby
+![image info](./Pictures/hash3.png)
+- We can see we keep placing the strings farther away from their hashcodes. We still can look it up quiete quick by just looking at the next and next hash code position of the table, yet we kinda loose the benefit of O(1) and start leaning towards O(n) when it comes to search
+- Linear probing is subject to a problem called clustering. Once there's a miss, two adjacent cells will contain data, making it more likely in the future that the cluster will grow
+- Even if we switch to another probing technique, we're still limited. We can only store as much data as we have locations in our array
+
+### Resolving collisions with "Chaining"
+- What if instead of each element of the array holding just one piece of data, it held multiple pieces of data?
+- If each element of the array is a pointer to the head of a linked list, then multiple pieces of data can yield the same hash code and we'll be able to store it all
+- We know from experience with linked lists that insertion (and creation, if necessary) into a linked list is an O(1) operation
+- For look up, we only need to search through what is hopefully a small list, since we're distributing what would otherwise be one huge list across n lists
+![image info](./Pictures/hash4.png)
+- Now our hash table is an array of 10 nodes initially pointing to NULL and able to store pointers to heads of linked lists
+```c
+node *hashtable[10];
+```
+- So when running the string "Joey" through our hash function, we return the hash code 6. At position 6 of our array we store the pointer, pointing at our linked list head, that stores the string "Joey"
+![image info](./Pictures/hash6.png)
+- We can keep adding to pointers to our strings. If we encounter a colission, we just add the new string to the existing linked list and make it its head. So if we hash a string with hash code 6 as its outcome, we can still perform the look up quiete fast, since we do not have to go over all elements, but just the node stored in the linked list, that are pointed to in position 6 for example
+***
+
+***
+# TRIES
+***
