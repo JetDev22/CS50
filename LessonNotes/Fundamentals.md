@@ -1117,6 +1117,7 @@ truthable[2] = 3;
 - Stuck with a fixed size, no flexibility
 
 ## Linked Lists
+
 ![image info](./Pictures/linkedList4.png)
 - Insertion is easy - just tack onto the front
 - Deletion is easy - once you find the element
@@ -1125,6 +1126,7 @@ truthable[2] = 3;
 - Relatively small size-wise (not as small as arrays though)
 
 ## Hash Tables
+
 ![image info](./Pictures/hashTable.png)
 - Insertion is a two-step process - hash, then add
 - Deletion is easy - once you find the element
@@ -1133,6 +1135,7 @@ truthable[2] = 3;
 - Can run the gamut of size
 
 ## Tries
+
 ![image info](./Pictures/tries.png)
 - Insertion is complex - alot of dynamic memory allocation, but gets easier as you go
 - Deletion is easy - just free a node
@@ -1172,6 +1175,7 @@ mycar.odometer = 50505;
 - Here you can see we use strcpy to assign a string to mycar.plate. Remember we can not assigne a string to a variable, we have to copy it into the variable
 - Structures, like variables of all other data types, do not need to be created on the stack. We can dynamically allocate structures at run time if our programm requires it
 - In order to access the fields of our structures in that situation, we first need to dereference the pointer to the structure and then we can access its field
+
 ![image info](./Pictures/memoryMap.png)
 ```c
 // variable declaration
@@ -1283,6 +1287,7 @@ trav = n;
 ```
 - Note that we did not have to malloc memory for trav. This is because the memory for n already exists, all we do is create a second pointer, called trav, to that existing memory location
 - Second step is to compare if the VALUE field at that node is equal to the one we passed in the function. If yes, we return true, if not we travers to the next node or until we hit NULL (end of the list). This is linear search
+
 ![image info](./Pictures/sllist0.png)
 - If the node value is not what we are looking for, we move to the next node by saying
 ```c
@@ -1322,12 +1327,16 @@ sllnode *new(sllnode *head, VALUE val);
 	list = n;
 ```
 - Lets visualize this. Here we have a linked list and we want to insert 12 into the list
+
 ![image info](./Pictures/sllist1.png)
 - To insert the value 12 at the beginning of the list, we first malloc memory for our new node malloc(sizeof(sllnode)) and insert the value 12
+
 ![image info](./Pictures/sllist2.png)
 - Now we have reached a decision point. Which pointer should we move first? Should the "12" node be the new head of the linked list, since it now exists or should we connect it to the first node? This is one of the trickiest things with linked lists. Order matters!
+
 ![image info](./Pictures/sllist3.png)
 - If we first have list point to the new node we created, how do we tell the new head to point to the "15"? We seem to have lost all reference to point to "15". So we literally orphaned the rest of the list, by making "12" the new head of the list.
+
 ![image info](./Pictures/sllist4.png)
 - The solution is to have the "12" next pointer, to point to the old head of the list first, and then have list point to "12". With singly linked list we always want to connect the new element first with the rest of the list and only then we have it be the head
 
@@ -1347,6 +1356,7 @@ void destroy(sllnode *head);
 	- if you have reached a null pointer, stop
 	- Delete the rest of the list
 	- Free the current node
+
 ![image info](./Pictures/sllist5.png)
 - To the destroy function we pass in the pointer list. Since list does not point to a node with a NULL pointer, we recursively pass in the list->next pointer to destroy
 ```c
@@ -1354,6 +1364,7 @@ list = list->next;
 destroy(list);
 ```
 - So now the delete of "12" is frozen (on the stack) and we look at "15". This again has no NULL pointer so we again call destroy(list) and delete "15" is also added to the stack and so on until we reach "10" that is not a NULL pointer, but contains a NULL pointer. Now list points at the NULL pointer of "10". 
+
 ![image info](./Pictures/sllist6.png)
 - Now everything is recursively deleted from the stack by freeing the current node (first "15", then "13" until we reach the head of the list "12")
 ```c
@@ -1426,10 +1437,12 @@ dllnode * insert(dllnode * head, VALUE val);
 ```c
 	// Update head of the list to be just created node
 	list = n;
-	```
+```
+
 ![image info](./Pictures/dllist0.png)
 - Again lets visualize the problem. We want to add "12" to our doubly linked list. We again have to carefull in what order we change the pointers, not to orphan our list
 - We first have to set the pointers for the "12" node, before we do anything else. So we have "12" next point to "15" and "12" prev to NULL
+
 ![image info](./Pictures/dllist1.png)
 - Now we have to change the "15" prev pointer to point to "12" and finally have list point at the new head of the list, which is "12"
 
@@ -1440,6 +1453,7 @@ dllnode * insert(dllnode * head, VALUE val);
 void delete(dllnode *target);
 ```
 - To do this we have to fix the surrounding nodes pointers to skip over the target and then we free the target node
+
 ![image info](./Pictures/delNode0.png)
 - In this example we want to delete the node marked with x
 - First we need to have "9" next point to "10" instead of "13"
@@ -1470,6 +1484,7 @@ node10->prev = node13->prev;
 	- First, a hash function, which returns an nonnegative integer value called a hash code
 	- Second, an array capable of storing data of the type we wish to place into the data structure
 - The idea is that we run our data through the hash function and then store the data in the element of the array represented by the returned hash code
+
 ![image info](./Pictures/hash0.png)
 - So if we want to store the string "John" in our hash table, we run the string through our hash function and get the int 4. To check if a string is in the array, we pass the string through the hash function, get an integer, look at hashtable[x] and see if the string is there
 - How to define a hash function? Really no limit to the number of possible hash functions
@@ -1492,6 +1507,7 @@ usinged int hash(char *str)
 }
 ```
 - Generally you should find and use hash function on the internet. If you use them be sure to give credit and cite the source of your hash function
+
 ![image info](./Pictures/hash1.png)
 - Now a problem could now be that we can only store one string at a time, because the sum of Paul and Ringo is the same
 - A collision occurs when two pieces of data, when run through the hash function, yield the same hash code
@@ -1501,6 +1517,7 @@ usinged int hash(char *str)
 ### Resolving collisions with "Linear Probing"
 - In this method, if we have a collision, we try to place the data in the next consecutive element in the array (wrapping around to the beginning if necessary) until we find a vacancy
 - That way, if we don't find what we're looking for in the first location, at least hopefully the element is somewhere nearby
+
 ![image info](./Pictures/hash3.png)
 - We can see we keep placing the strings farther away from their hashcodes. We still can look it up quiete quick by just looking at the next and next hash code position of the table, yet we kinda loose the benefit of O(1) and start leaning towards O(n) when it comes to search
 - Linear probing is subject to a problem called clustering. Once there's a miss, two adjacent cells will contain data, making it more likely in the future that the cluster will grow
@@ -1511,12 +1528,14 @@ usinged int hash(char *str)
 - If each element of the array is a pointer to the head of a linked list, then multiple pieces of data can yield the same hash code and we'll be able to store it all
 - We know from experience with linked lists that insertion (and creation, if necessary) into a linked list is an O(1) operation
 - For look up, we only need to search through what is hopefully a small list, since we're distributing what would otherwise be one huge list across n lists
+
 ![image info](./Pictures/hash4.png)
 - Now our hash table is an array of 10 nodes initially pointing to NULL and able to store pointers to heads of linked lists
 ```c
 node *hashtable[10];
 ```
 - So when running the string "Joey" through our hash function, we return the hash code 6. At position 6 of our array we store the pointer, pointing at our linked list head, that stores the string "Joey"
+
 ![image info](./Pictures/hash6.png)
 - We can keep adding to pointers to our strings. If we encounter a colission, we just add the new string to the existing linked list and make it its head. So if we hash a string with hash code 6 as its outcome, we can still perform the look up quiete fast, since we do not have to go over all elements, but just the node stored in the linked list, that are pointed to in position 6 for example
 ***
