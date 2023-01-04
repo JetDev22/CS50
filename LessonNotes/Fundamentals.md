@@ -1543,3 +1543,38 @@ node *hashtable[10];
 ***
 # TRIES
 ***
+- We have seen a few data structures that handle the mapping of key-value pairs
+	- Arrays: They key is the element index, the value is the data at that location
+	- Hash Tables: They key is the hash code of the data, the value is a linked list of data hashing to that hash code
+- What about a slightly different kind of data structure where the key is guranteed to be unique and the value could be as simple as a boolean that tells you whether the data exists in the structure?
+- Tries combine structures and pointers together to store data in an interesting way
+- The data to be searched for in the trie is now a roadmap. If you can follow the map from beginning to end, the data exists in the trie. If you can't, it does not exist
+- Unlike with a hash table, there are no collisions and no two pieces of data (unless they are identical) have the same path
+- Let's map key-value pairs where the keys are four digit years (YYYY) and the values are names of universities founded during those years
+- In a trie, the path from a central root node to a leaf node (where the school names would be), would be labeled with digits of the year
+- Each node on the path from root to leaf could have 10 pointers emanating from it, one for each digit
+- To insert an element into the triem simply build the correct path from the root to the leaf
+```c
+typedef struct _trie
+{
+	char university[20        // University name
+	struct _trie *paths[10];  // 10 pointers to other leafs
+}
+trie;
+```
+
+![image info](./Pictures/tries0.png)
+- Here we want to insert "Harvard" and the year is 1636. So in the first node, called root, we malloc a new node and store a pointer in 1, pointing to the just created new node. From there we take the second digit of our year 6 and store a pointer at location 6 to another new node and so on ... Once we reached the node with the last digit, here 6, we store a pointer to another new node, which we will call Harvard
+![image info](./Pictures/tries1.png)
+- If we now wanted to insert "Yale" founded in 1701, we do the same thing. Except this time, we can reuse the first 1 pointer and the node it points to. From there on we have to malloc our new nodes and store their respective pointers
+
+![image info](./Pictures/tries2.png)
+- To search for an element in the trie, use successive digits to navigate from the root and if you can make it to the end without hitting a dead end (a NULL pointer) you've found it
+- To search through the trie, it is advisable to create a traversal pointer, to protect the original pointer and avoid orphaning our data by accident
+```c
+// create trav pointer to equal root
+trav = root;
+```
+***
+
+***
