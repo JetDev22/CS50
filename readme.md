@@ -18,19 +18,17 @@ So here I will upload all my completed problemsets and my notes, done with Obsid
 - Fundamentals [All CS50 shorts in text form, grouped by topic]
 ***
 ## Current Status
-Week  0 - Scratch                 [DONE]
-Week  1 - C                       [DONE]
-
-Week  2 - Arrays                      [DONE]
-
-Week  3 - Algorithms                  [DONE]
-Week  4 - Memory                      [DONE]
-Week  5 - Data Structures             [DONE]
-Week  6 - Python                      [CURRENT]
-Week  7 - SQL                         [TODO]
-Week  8 - HTML, CSS, JavaScript       [TODO]
-Week  9 - Flask                       [TODO]
-Week 10 - Emoji                       [TODO]
+Week  0 - Scratch.................[DONE]
+Week  1 - C.......................[DONE]
+Week  2 - Arrays..................[DONE]
+Week  3 - Algorithms..............[DONE]
+Week  4 - Memory..................[DONE]
+Week  5 - Data Structures.........[DONE]
+Week  6 - Python..................[CURRENT]
+Week  7 - SQL.....................[TODO]
+Week  8 - HTML, CSS, JavaScript...[TODO]
+Week  9 - Flask...................[TODO]
+Week 10 - Emoji...................[TODO]
 ***
 ## Roadmap
 - Finish CS50x
