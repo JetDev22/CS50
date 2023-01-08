@@ -1376,7 +1376,7 @@ void destroy(sllnode *head)
 {
 	if (sllnode *head == NULL)
 	{
-		free(sllnode *head
+		free(sllnode *head);
 			return;
 	}
 
@@ -1557,7 +1557,7 @@ node *hashtable[10];
 ```c
 typedef struct _trie
 {
-	char university[20        // University name
+	char university[20];       // University name
 	struct _trie *paths[10];  // 10 pointers to other leafs
 }
 trie;
