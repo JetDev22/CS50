@@ -19,8 +19,11 @@ So here I will upload all my completed problemsets and my notes, done with Obsid
 ***
 ## Current Status
 Week  0 - Scratch                     [DONE]
+
 Week  1 - C                           [DONE]
+
 Week  2 - Arrays                      [DONE]
+
 Week  3 - Algorithms                  [DONE]
 Week  4 - Memory                      [DONE]
 Week  5 - Data Structures             [DONE]
