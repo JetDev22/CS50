@@ -18,9 +18,8 @@ So here I will upload all my completed problemsets and my notes, done with Obsid
 - Fundamentals [All CS50 shorts in text form, grouped by topic]
 ***
 ## Current Status
-Week  0 - Scratch                     [DONE]
-
-Week  1 - C                           [DONE]
+Week  0 - Scratch                 [DONE]
+Week  1 - C                       [DONE]
 
 Week  2 - Arrays                      [DONE]
 
