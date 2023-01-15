@@ -31,7 +31,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -98,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Fundamentals.md",
+                "file": "Lesson Notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Fundamentals.md",
+                "file": "Lesson Notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +139,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Fundamentals.md"
+                "file": "Lesson Notes.md"
               }
             }
           }
@@ -159,10 +160,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "6bf565657ba1b8f0",
+  "active": "1fd451fd366ca27d",
   "lastOpenFiles": [
-    "Lesson Notes.md",
     "Fundamentals.md",
+    "Lesson Notes.md",
     "CommandLine.md",
     "Pictures/bigOgraph.png",
     "bigOgraph.svg",

@@ -1267,3 +1267,47 @@ A queues is a data structure that uses FIFO (first in first out) to make sure th
 
 STACKS
 A stack is litteraly things stacked on top of each other (remember recursion) and they follow LIFO (last in first out). This again could be represented by an array or a linked list. The two functions needed for a stack are push (add to stack) and pop(remove from stack). 
+***
+***
+# Lesson 6 - Python
+***
+- The goal is not to teach you just another programming language, but to teach you how to teach yourself a new language
+- We can compare the syntax of C and python with the example of taking an input and then printing the input combined with a string
+```c
+// Get user input and print input with some string
+string answer = get_string("What is your name? ");
+printf("Hello %s\n", answer);
+
+// Set counter variable to a value
+int counter = 1;
+
+// If statement
+if (x > 0)
+{
+	x++;
+}
+
+// While Loop
+while (true)
+{
+	printf("Hello\n");
+}
+```
+```python
+# Get user input and print input with some string
+answer = input("What is your name? ")
+print(f"Hello, {answer}")
+
+# Set counter variable to a value
+counter = 1
+
+# If statement
+if x > 0:
+	x += 1
+
+# While Loop
+while True:
+	print("hello")
+```
+- Python is really strict with indentation. It will simply to work if indentations are wrong (white space error)
+- 
