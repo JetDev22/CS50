@@ -1273,6 +1273,7 @@ A stack is litteraly things stacked on top of each other (remember recursion) an
 ***
 - The goal is not to teach you just another programming language, but to teach you how to teach yourself a new language
 - We can compare the syntax of C and python with the example of taking an input and then printing the input combined with a string
+
 ```c
 // Get user input and print input with some string
 string answer = get_string("What is your name? ");
@@ -1309,5 +1310,113 @@ if x > 0:
 while True:
 	print("hello")
 ```
+
+
 - Python is really strict with indentation. It will simply to work if indentations are wrong (white space error)
-- 
+- Let us quickly look at how to include something in C vs Python
+
+```c
+#include <stdio.h>
+```
+```Python
+# Import everything and call it as get_string in your own code (avoid)
+import CS50 *
+
+# Import everything and call it as CS50.get_string (good practise)
+import CS50
+
+# Import multiple functions but not more than 3 in single line
+from CS50 import get_string, get_int, get_float
+```
+
+- Compared to a compiled language like C (make program.c) in Python we have a interpreted language. Meaning we do not have to compile our programs but we can use the interpreter python to run our code. The downside to this easier approach is, that interpreted languages are slower than compiled languages
+
+## Exceptions 
+- Exceptions are errors like name-error, value-error that can happen, while your python code is running, that are not necessarily detected before you run your code (program asks for int input but gets string)
+
+```Python
+try:
+	x = int(input("x = "))
+except:
+	print("Only enter ints!")
+	exit()
+try:
+	y = int(input("y = "))
+except:
+	print("Only enter ints!")
+	exit()
+
+print(x + y)
+```
+
+- Traceback error are to be read bottom to top. They show the first called function that failed on the bottom and go back through the stack to show you the resulting followup errors
+- Functions built into objects are refered to as methods
+
+- In Python we can also use command line arguments, but not right out of the box, we have to import the argument vector argv
+
+```Python
+from sys import argv
+
+if argv == 2:
+	print(f"Hello {argv[1]}")
+else:
+	print("Hello World")
+
+# python argv.py        => Hello World
+# python argv.py Thomas => Hello Thomas
+```
+
+## Linear Search in Python
+
+```Python
+import sys
+
+numbers = [4, 6, 8, 2, 7, 5, 0]
+
+# Linear Search in Python
+if 0 in numbers:
+	print("Found")
+	sys.exit(0)
+
+# Not found case
+print("Not found")
+sys.exit(1)
+```
+
+## Dictionary in Python
+
+```Python
+
+people = {"Carter":"001-033-665-223", "Jeff":"001-345-876-321"}
+
+name = input("Name: ")
+if name in people:
+	print(f"Number: {people[name]}")
+```
+
+## Save data as CSV
+
+```Python
+import csv
+
+# opens csv file in append mode to be able to add to it. if opened in w it would overwrite whatever was there
+file = open("phonebook.csv", "a")
+
+# ask user for data
+name = input("Name: ")
+number = input("Number: ")
+
+# create a variable to store writer to csv file
+writer = csv.writer(file)
+
+# write a list to the csv file
+writer.writerow([name, number])
+
+# close file
+file.close()
+```
+
+***
+***
+# Lesson 7 - SQL
+***

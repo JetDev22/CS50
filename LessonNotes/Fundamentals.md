@@ -1578,3 +1578,212 @@ trav = root;
 ***
 
 ***
+# PYTHON
+***
+- Python is an example of a very commonly-used modern programming language. C was first released in 1972, Python in 1991
+- Python is an excellent versatile language choice for making complex C operations much simpler, like String Manipulation or Networking
+- Fortunately, Python is heavily inspired by C (its primary interpreter CPyhton is actually written in C) and so the syntax should be a shallow learning curve
+- To start writing Python, open up a file with the .py extension
+- Unlike a C program, which typically has to be compiled before you can run it, a Python program can be run without explicitly compiling it first
+- Important Note: In CS50, we teach Python 3
+
+## Variables
+- Python variables have two big differences from C
+	- No type specifier (int, float ...)
+	- Declared by initialization only (like in C int x; was possible, in Python you always have to initialize with a value, for example x = 0)
+	- Python statements do not need to end with semicolons!
+
+## Conditionals
+- All of the old favorites from C are still available for you to use, but they look a little bit different now
+
+```Python
+# If Statement (==, !=, and, or)
+if y < 43 or z == 15:
+	# code goes here
+elif:
+	# code goes here
+else:
+	# code goes here
+
+# True False
+letters_only = True if input().isalpha() else False
+```
+
+## Loops
+- We have to variants of loops in Python, while and for
+
+```Python
+# While Loop
+counter = 0
+while counter < 100:
+	print(counter)
+	counter += 1
+
+# For Loop
+for x in range(100):
+	print(x)
+```
+
+## Lists []
+- Here's where things really start to get a lot better than in C
+- Python arrays (more appropriately known as lists) are NOT fixed in size. They can grow and shrink as needed and you can always tack extra elements onto you array and splice things in and out easily
+
+```Python
+# Delcare a list
+nums = []
+nums = list()
+
+# Add item to end of list
+nums.append(5)
+
+# Attach one list to the end of another list
+nums[len(nums):] = [5]
+
+# Add item to 4th position (index 4) in list
+nums.insert(4, 5)
+
+# List comprehension (for loop inside list to generate content)
+nums = [x for x in range(500)]
+```
+
+## Tuples ()
+- Python also has a data type that is not quite like anything comparable to C, a tuple
+- Tuples are ordered, immutable sets of data. They are great for associating collections of data, sort of like a struct in C, but where those values are unlikely to change
+
+```Python
+# List of tuples
+presidents = [("George Washington", 1789), ("John Adams", 1797), ("Thomas Jefferson", 1801), ("James Madison", 1809)]
+
+# Iterate through list of tuples
+for prez, year in presidents:
+	print("In {1}, {0} took office".format(prez, year))
+```
+
+## Dictionaries {}
+- Python also has a built in support for dictionaries, allowing you to specify list indices with words or phrases (keys), instead of integers, which you were restricted to in C
+
+```Python
+# Dictionary
+pizzas = {"cheese": 9, "pepperoni": 10, "vegetable": 11, "buffalo chicken": 12}
+
+# Change Value of key
+pizzas["cheese"] = 8
+
+# Add key to dictionary
+pizzas["bacon"] = 14
+```
+
+- But this creates a somewhat new problem ... how do we iterate through a dictionary? We don't have indexes ranging from [0, n-1] anymore. We use a for loop to iterate over a dictionary
+
+```Python
+# pie is just used like i
+
+# iterate over keys
+for pie in pizzas:
+	# do something
+
+# iterate over keys and values (note we have to use .items)
+for pie, price in pizzas.items():
+	# do something
+```
+
+## Printing
+- format gives one way to interpolate variables into our printed statements in a very printf like way
+
+```Python
+
+print("A whole {} pizza costs ${}".format(pie, price))
+
+print("A whole" + pie + " pizza costs $" + str(price))
+
+# Deprecated, avoid in Python 3
+print("A whole %s pizza costs $%2d" % (pie, price))
+```
+
+## Functions
+- Python has support for functions as well. Like variables, we don't need to specify the return type of the function (because it does not matter), nor the data types of any parameters
+- All functions are introduced with the def keyword. Also, no need for main. The interpreter reads from top to bottom in Python! If you wish to define main nonetheless (and you might want to), you must at the very end of your code have:
+
+```Python
+# call main loop if defined
+if __name__ == "__main__":
+	main()
+
+# A function in  Python
+def square(x):
+	return x * x
+```
+
+## Objects (class)
+- Python is an object-oriented programming language
+- An object is sort of analogous to a C struct
+- C structs contain a number of fields, which we might also call properties
+- Objects meanwhile, have properties but also methods or functions that are inherent to the object, and mean nothing outside of it. You define the methods inside an object also. Thus, properties and methods don't ever stand on their own (they have to be called with the .operator on the object created car.year or car.model)
+- You define a type of object using the class keyword in Python
+- Classes require an initialization function, also more generally known as a constructor, which sets the starting values of the properties of the object
+- In defining each method of an object, self should be its first parameter, which stipulates on what object the method is called
+
+```Python
+
+class Student():
+
+	# Constructor
+	def __init__(self, name, id):
+		self.name = name
+		self.id = id
+
+	# Method
+	def changeID(self, id):
+		self.id = id
+
+	# Method
+	def print(self):
+		print("{} - {}".format(self.name, self.id))
+
+# Create new student object
+jane = Student("Jane", 10)
+
+# Call object method
+jane.changeID(16)
+```
+
+## Style
+- If you haven't noticed, good style is crucial in Python
+- Tabs and indentation, actually matter in this language and things will not work the way you intend for them to if you disregard styling!
+- Good news? No more curly braces to delineate blocks! Now they are used to declare dictionaries
+
+## Including Files
+- Just like C programs can consist of multiple files to form a single program, so can Python programs tie files together
+
+```Python
+import module
+from module import function
+```
+
+## Syntax
+- Python programs can be prewritten in .py but you can also write and test short Python snippets using the Python interpreter from the command line
+- All that is required is that the Python interpreter is installed on the system you wish to run your Python programs on
+
+```bash
+python file.py
+```
+
+- You can also make your programs look a lot more like C programs when they execute by adding a shebang to the top of your Python files, which automatically finds and executes the interpreter for you
+
+```Python
+#!/usr/bin/env python3
+```
+
+- If you do this, you need to change the permissions on your file as well, using the Linux command chmod as follows
+
+```bash
+chmod a+x file.py
+
+./file.py
+```
+***
+
+***
+
+# SQL
+***
