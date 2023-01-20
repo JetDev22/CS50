@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Fundamentals.md",
+                "file": "readme.md",
                 "mode": "source",
                 "source": false
               }
@@ -81,8 +81,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 245.5,
-    "collapsed": true
+    "width": 245.5
   },
   "right": {
     "id": "cbc6f1db56440ac4",
@@ -98,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Fundamentals.md",
+                "file": "readme.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Fundamentals.md",
+                "file": "readme.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +137,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Fundamentals.md"
+                "file": "readme.md"
               }
             }
           }
@@ -161,8 +160,8 @@
   },
   "active": "6bf565657ba1b8f0",
   "lastOpenFiles": [
-    "Lesson Notes.md",
     "Fundamentals.md",
+    "Lesson Notes.md",
     "CommandLine.md",
     "Pictures/bigOgraph.png",
     "bigOgraph.svg",
