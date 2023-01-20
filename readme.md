@@ -30,9 +30,9 @@ Week  4 - Memory..................[DONE]
 
 Week  5 - Data Structures.........[DONE]
 
-Week  6 - Python..................[CURRENT]
+Week  6 - Python..................[DONE]
 
-Week  7 - SQL.....................[TODO]
+Week  7 - SQL.....................[CURRENT]
 
 Week  8 - HTML, CSS, JavaScript...[TODO]
 
