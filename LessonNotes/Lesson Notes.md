@@ -1420,3 +1420,130 @@ file.close()
 ***
 # Lesson 7 - SQL
 ***
+- We have worked with csv files (comma separated values) as a flat file database. Meaning the data is stored in UNICODE / ASCII format and therefore small in size, easy to use in different programming languages. 
+- The categories are listend ontop of a csv file, so data, seperated by a comma, can be in columns (Name, Adress, Thomas, Lüdinghausen, Mike, Berlin), but if there is more data input for one category, in a CSV file, the data is encapsulated in "" (Name, Adress, Thomas, "Lüdinghausen, NRW", Mike, "Berlin, Berlin") so multiple data input still refer to only one category.
+- To read a csv file with favorite tv shows and their genre we can use Python
+
+```Python
+import csv
+
+# Open file
+with open("favorites.csv", "r") as file:
+	# Create cursor to read file
+	reader = csv.reader(file)
+	# Skip first row
+	next(reader)
+	for row in reader:
+		print(row[1])
+```
+
+- But to make it easier to associate a value (count) for a given title, we should rather use a Python dictionary. A dict is basically a two column table with keys and values
+
+```Python
+import csv
+
+favoritesDict = {}
+
+# Open File
+with open("favorites.csv", 'r') as file:
+	reader = csv.DictReader(file)
+	for row in reader:
+		# Check if title already in dict, if not add
+		if not row["title"] in favoritesDict:
+			favoritesDict["title"] = 1
+		# If in dict increment value by 1
+		else:
+			favoritesDict["title"] += 1
+```
+
+## Lamda Function
+- A lamda function in python is a use-once function, written in only one line, without a name (hence an anonymus function)
+- Note there is no return statement in the lamda function, that is because you only express what you want to return in a lamda function anyway
+
+```Python
+lambda argument: function
+
+# Regular function to return value of key
+def returnValue(dict, name):
+	return dict[name]
+
+# Lambda function to return the value of a key
+lambda favoritesDict, "name": favoritesDict["name"]
+```
+
+## Relational Database
+- Recall that storing data in a CSV file is refered to as "flat file database". Just a simple file, and flat meaning that there is no hirachy to it only columns (top row defines the columns) and rows (where data is stored). Think of it as a single sheet of paper or spreadsheet
+- A relational database is actually something closer to a spreadsheet program. While we are not a mouse or gui like in Excel, we are now using code to use our database of spreadsheets
+- Sequal does 4 things in essence. These are easy to remember with the acronym CRUD (Meaning / SQL Command)
+	- C : Create / Insert
+	- R : Read / Read
+	- U : Update / Update
+	- D : Delete / Drop
+- Whenever you create a table, in contrast to Excel, you have to decide what data type the column will store in advance. The benefit of this is scaling. The more data the data base has, the more performant it can be when scaled. It knows what data type a specific column has and therefore does not need to find out what operations are applicable
+
+```bash
+sqlite3 favorites.db
+```
+
+- There are many SQL providers, yet we use SQLite3 which is also used in Android or iOS
+- Convention is, to name your database with .db
+
+![image info](./Pictures/csv.png)
+
+```sql
+.mode csv -- enter csv mode
+.import favorites.csv favorites -- import csv as table called favorites
+.schema -- show schema derived from csv format top line (Timestamp, Title, Genre) followed by its datatype
+```
+
+```sql
+SELECT title FROM favorties; -- result below
+SELECT column FROM tables; -- is the generic function
+```
+
+![image info](./Pictures/sql0.png)
+
+- SQL is highly optimised to deal and work with textual data, therefore with a simple command like above, we can save many lines of codes and still get the same power to manipulate, sort or view our data
+- A convention for SQL is to capitalize all sql commands and lower case all tables or data names
+
+```SQL
+SELECT genres FROM favorites;
+```
+
+- Of course you can also use SQL inside of a Python program
+
+```Python
+from cs50 import SQL
+
+# Open Database with SQL
+db = SQL("sqlite:///favorites.db")
+
+# Ask user for a title and strip off any whitespace
+title = input("Title: ").strip()
+
+# Execute a SQL command inside of python to look for user given title. db.execute returns a list of dictionaries of rows
+rows = db.execute("SELECT COUNT(*) AS counter FROM favorites WHERE title LIKE ?", title)
+
+# Count is in first row as first value
+row = rows[0]
+
+print(["counter"])
+```
+
+- In SQLite there are five data types:
+	- BLOB (binary large object, raw 0s and 1s for files etc)
+	- INTEGER (postive and negative ints)
+	- NUMERIC (Dates, Times)
+	- REAL (positive and negative floats)
+	- TEXT
+- A primary key is a unique ID  for a given data, even if there is multiples of it 
+- A foreign key is a primary key referenced in a different table. A foreign key refers to the datas primary
+- By creating an index on a table we can speed things up by index these tables to memory
+
+```SQL
+CREATE INDEX genres ON favorites (genres)
+```
+
+## Race Condition
+- What happens if you scale your database or program on multiple devices or onto a website and users create requests at the same time. An example would be if people clicked a like button. Now the database has to be updated as to how many likes where given. If no multiple users click the button close to each other, how to handle storing these likes in the database becomes a challenge.
+- The solution is to have multiple threads that intercommunicate states while executing the requests

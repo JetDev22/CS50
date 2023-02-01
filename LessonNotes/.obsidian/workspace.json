@@ -8,19 +8,19 @@
         "type": "tabs",
         "children": [
           {
-            "id": "6bf565657ba1b8f0",
+            "id": "1fd451fd366ca27d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "readme.md",
+                "file": "Fundamentals.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "1fd451fd366ca27d",
+            "id": "0423fe4dd89677b7",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -31,7 +31,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -81,7 +82,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 245.5
+    "width": 245.5,
+    "collapsed": true
   },
   "right": {
     "id": "cbc6f1db56440ac4",
@@ -97,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "readme.md",
+                "file": "Lesson Notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "readme.md",
+                "file": "Lesson Notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +139,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "readme.md"
+                "file": "Lesson Notes.md"
               }
             }
           }
@@ -158,10 +160,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "6bf565657ba1b8f0",
+  "active": "0423fe4dd89677b7",
   "lastOpenFiles": [
     "Fundamentals.md",
     "Lesson Notes.md",
+    "readme.md",
     "CommandLine.md",
     "Pictures/bigOgraph.png",
     "bigOgraph.svg",
