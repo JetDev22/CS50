@@ -1787,3 +1787,121 @@ chmod a+x file.py
 
 # SQL
 ***
+- Often times in order for us to build the most functional website or program we depend on a database to store information
+- If you've ever used Microsoft Excel or Google Spreadsheets, odds are you're familiar with the notion of a database: A hierarchically organized set of tables, each of which contains a set of rows and columns
+- SQL (the Structured Query Language) is a programming language whose purpose is to query a database
+- MySQL is one opensource platform on which you can establish the type of relational database that SQL is most adept at working with. SQLite is another, which we've actually use in CS50
+- Manys installations of SQL come with a GUI tool called phpMyAdmin, which can be used to execute database queries in a more user-friendly way
+- After you create a database, the next thing you'll most likely want to do is to create a table. The syntax for doing this is actually a bit awkward to do programmatically, at least at the outset and so this is where phpMyAdmin will come in handy
+- As part of the process of creating a table, you'll be asked to specifiy all of the columns in that table
+- Thereafter all your queries will refer to rows of the table
+- Each column of your SQL table is capable of holding data of a particular data type
+
+![image info](./Pictures/sqlDataTypes.png)
+
+- SMALLINT and BIGINT are just integers with different upper bounds
+- Unlike C, the CHAR data type in SQL does not refer to a single character. Rather it is a fixed-length string. In most relational databases, including MySQL, you actually specify the fixed-length as part of the type definition e.g. CHAR(10). If you stored the word "Hi" in a CHAR column, that would work, but the string would be filled with 8 NULL characters to fit the length of 10
+- A VARCHAR refers to a variable length string. VARCHARs also require you to specify the maximum possible length of a string that could be stored in that column e.g. VARCHAR(99)
+- SQLite has these data types as well, but affiliates each with a "type affinity" to simplify things. The entire list of SQL data types can be reduced to the data types below
+
+![image info](./Pictures/sqlDataTypes1.png)
+
+- NULL = Nothing
+- INTEGER = whole numbers
+- REAL = floats
+- TEXT = strings
+- BLOB = for data or bits
+
+- One other important consideration when constructing a table in SQL is to choose one column to be your primary key
+- Primary keys enable rows of a table to uniquely and quickly identified. Choosing your primary key appropriately can make subsequent operations on the table much easier
+- It is also possible to establish a joint key - a combination of two columns that is always guranted to be unqiue
+- SQL is a programming language but its vocabulary is failry limited. We will primarily consider just four operations one may perform on a table
+	- INSERT
+	- SELECT
+	- UPDATE
+	- DELETE
+
+- For all examples hereafter we will consider these two tables:
+
+![image info](./Pictures/sqlTable.png)
+
+## INSERT
+- Add information to a table
+- The general structure of an insert querie is build like this
+
+```SQL
+INSERT INTO <table>(<columns>) VALUES(<values>)
+
+INSERT INTO users(username, password, fullname) VALUES ('newman', 'USMAIL', 'Newman')
+```
+
+- columns and values is a comma seperated list. So to insert to multiple columns you would comma seperate all columns you want to insert to. Same for values, you would sperarate all values you want to insert with a comma
+- When defining the column that ultimately ends up being your table's primary key, it's usually a good idea to have that column be an integer
+- Moreover, so as to eliminate the situation where you may accidentally forget to specify a real value for the primary key column, you can configure that column to autoincrement, so it will pre-populate that column for you automatically when rows are added to the table (our insert example added a new idnum for our entry automatically without us specifing it)
+
+![image info](./Pictures/sqlTable1.png)
+
+## SELECT
+- Where insert is used to insert information into a table, select is used to get that information back out of the table
+
+```SQL
+SELECT <columns> FROM <table> WHERE <condition/predicate> ORDER BY <column>
+
+SELECT idnum, fullname FROM users
+```
+
+![image info](./Pictures/sqlTable2.png)
+
+```SQL
+SELECT password FROM users WHERE idnum < 12
+```
+
+![image info](./Pictures/sqlTable3.png)
+
+```SQL
+SELECT * FROM moms WHERE username = 'jerry'
+```
+
+![image info](./Pictures/sqlTable4.png)
+
+- * will return all columns
+- Databases empower us to organize information into tables efficiently. We don't always need to store every possible relevant piece of information in the same table, but can use relationships across the tables to let us pull information from where we need 
+
+## SELECT (join)
+- What if we now find ourselves in a situation where we need to get a user's full name (from the users table) and their mother's name (from the moms table)
+
+```SQL
+SELECT <columns> FROM <table1> JOIN <table2> ON <condition/predicate>
+
+SELECT users.fullname, moms.mother FROM users JOIN mums ON users.username = moms.username
+```
+
+![image info](./Pictures/sqlTable5.png)
+
+## UPDATE
+- Modify information in a table
+
+```SQL
+UPDATE <table> SET <column> = <value> WHERE <condition/predicate>
+
+UPDATE users SET password = 'yadayada' WHERE idnum = 10
+```
+
+![image info](./Pictures/sqlTable6.png)
+
+## DELETE
+- Remove information from a table
+
+```SQL
+DELETE FROM <table> WHERE <condition/predicate>
+
+DELETE FROM users WHERE username = 'newman'
+```
+
+![image info](./Pictures/sqlTable7.png)
+
+- All of these operations are pretty easy to do in the graphical interface of phpMyAdmin. We want to do this programmatically not just typing SQL command into the SQL tab of phpMyAdmin. 
+- Fortunately SQL integrates with other programming languages such as Python or PHP very easily
+***
+
+***

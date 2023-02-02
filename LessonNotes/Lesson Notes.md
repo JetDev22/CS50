@@ -1547,3 +1547,7 @@ CREATE INDEX genres ON favorites (genres)
 ## Race Condition
 - What happens if you scale your database or program on multiple devices or onto a website and users create requests at the same time. An example would be if people clicked a like button. Now the database has to be updated as to how many likes where given. If no multiple users click the button close to each other, how to handle storing these likes in the database becomes a challenge.
 - The solution is to have multiple threads that intercommunicate states while executing the requests
+***
+***
+# Lesson 8 - 
+***
