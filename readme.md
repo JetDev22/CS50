@@ -32,7 +32,7 @@ Week  5 - Data Structures................[DONE]
 
 Week  6 - Python..............................[DONE]
 
-Week  7 - SQL..................................[CURRENT]
+Week  7 - SQL..................................[DONE]
 
 Week  8 - HTML, CSS, JavaScript....[TODO]
 
