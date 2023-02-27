@@ -1,0 +1,13 @@
+QUESTION 1:
+-----------
+As stated we assume the audio aura is calculated by the averaging the energy, valence and danceability. For the given database we get following average values:
+Energy Average = 0.65906 | Minimum = 0.296 | Maximum = 0.909
+Valence = 0.484443 | Minimum = 0.0796 | Maximum = 0.931
+Danceability = 0.71646 | Minimum = 0.258 | Maximum = 0.964
+
+Given the aura types described in spotify's article, I would characterize our listener as YELLOW. Not too much energy but right in the middle, with a love for danceable songs.
+
+QUESTION 2:
+-----------
+The current calculation takes the average of every song listend to. Yet we would need to know how often one song has been listend to, to get a better idea, what our music lover
+prefers and consumes most. This would alter the average values towards their most often felt or seeked mood.

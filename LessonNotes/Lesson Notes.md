@@ -1549,5 +1549,350 @@ CREATE INDEX genres ON favorites (genres)
 - The solution is to have multiple threads that intercommunicate states while executing the requests
 ***
 ***
-# Lesson 8 - 
+# Lesson 8 - HTML, CSS, JavaScript
 ***
+- We started off with C and Python that is very terminal based, no gui and sort of deals with the backend. Now we get into to realms of the client side with more interactive frontend solutions
+
+## TCP/IP (Transmission Control Protocol/Internet Protocol)
+- TCP/IP are two protocoles (a set of rules) that computers use to send data over the internet or within a network. IP is a uniqe identifier so data to be send can be addressed specifically. All IPs follow the format #.#.#.# with each # being a number between 0 and 255. So every # represents 8bits or 1 byte. So an entire IP adress represent 32 bits or 4 bytes. This comes down to 4 billion possible combination for IPv4. IPv6 offers 128bits which offers way more combinations. Now TCP allows us to specify a couple of more things, like identifying the type of service (email, webtraffic ...) being send with a numeric identifier called port (#.#.#.#:port). Port 80 is usually used for HTTP and Port 443 for HTTPS, Email might use port 25 or 465.
+- Whenever you send a large file or email, your package might be fragmented in order to timeshare the available bandwidth for all users, so everybody can send big data without hogging the bandwitdth alone. The packages contain a sequence number to tell how many packages there are (1/4, 2/4 ...) so TCP can gurantee delivery. You will either get all packages or if not, TCP will re-request the package to be send, because it was incomplete
+
+## DNS (Domain Name System)
+- A DNS Server is basically a huge table with domain names (urls) and their associated IPs
+
+## HTTPS (Hyper Text Transfer Protocol Secure)
+- This is a protocol that allows browsers to communicate with web servers
+- The internet is the low level base, handling and sending packages from A to B, while HTTP is an application ontop of the internet to create the web.
+- The request we send with our browser to recieve data from a website is constructed like this:
+
+```HTTP
+GET / HTTP/1.1
+host: www.example.com
+...
+```
+
+- The response from the server would look something like this
+
+```HTTP
+HTTP/1.1 200 OK
+Content-Type: text/html
+...
+```
+
+- The 200 is a status code from the server and content-type specify the type of content the server will send as response to our request. It could also be image/jpg, image/png, video/mp4 etc ...
+- These keys and values are also known as http headers
+- In the terminal we can use CURL (connect to URL) to poke around the web without the clutter that is send from the server via a browser and just see the headers. -I and -X are command line arguments to simulate a GET request with CURL as if we were in a browser
+
+```bash
+curl -I -X GET http://www.harvard.edu/
+```
+
+![image info](./Pictures/html1.png)
+
+- Whenever a request does not work there will be status codes like 200 when everything was ok
+
+![image info](./Pictures/html2.png)
+
+## HTML
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>
+			Hello, Title
+		</title>
+	</head>
+	<body>
+		hello, body
+	</body>
+</html>
+```
+
+- <!DOCTYPE html> is just a document declaration ontop of the html file, telling the browser you are about to see an HTML file of version 5
+- When ever you open a tag with <XX> you close it with </xx> but you do not have to repeat any arguments given in the opening tag. Here html lang="en" closes only with /html
+- The indentations are needed for readability but are not relevant for the code
+- The head tag refers to everything like adressbar, tab title etc
+- The body tag is where all code lives
+- The html tag has two children here, the head child and the body child as well as the head tag has one child that is title
+- An element is any thing with an open tag and end tag. So here the elements are head, title, body
+- The text in title and body is known as text node
+
+![image info](./Pictures/html3.png)
+
+- When we create this file within VSCode we are not running anything to host the webpage, but we can use the terminal to spin up a webserver to host and show this page by
+
+```bash
+http-server
+```
+
+- This will generate a webserver that lets us serve our created html to a webbrowser and show the results of what we programmed
+- To make your html file scale to smaller devices like phones you can add another tag to autoscale to the device's screen
+
+```HTML
+<head>
+	<meta name="viewport" content="initial-scale=1, width=device-width">
+</head>
+```
+
+## CSS (Cascading Style Sheets)
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>
+			Home
+		</title>
+	</head>
+	<body>
+		<header style="font-size: large; text-align: center;">
+			John Harvard
+		</header>
+		<main style="font-size: medium; text-align: center;">
+		Welcome to my Homepage
+		</main>
+		<footer style="font-size: small; text-align: center;">
+		Copyright &#169; Thomas
+		</footer>
+	</body>
+</html>
+```
+
+- Everything after style here is already our new language CSS. As you can see CSS is key value pairs after the HTML style attribute
+- The &#169; is a html entity representing the copyright symbol
+- In our example above we typed text-align: center 3 times. But with the "inheritance" of children in our HTML elements we can set a value for a parent and it will be passed to the children. In this case body is the parent
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>
+			Home
+		</title>
+	</head>
+	<body style="text-align: center:">
+		<header style="font-size: large;">
+			John Harvard
+		</header>
+		<main style="font-size: medium;">
+		Welcome to my Homepage
+		</main>
+		<footer style="font-size: small;">
+		Copyright &#169; Thomas
+		</footer>
+	</body>
+</html>
+```
+
+- To even further clean up our code, you can actually seperate CSS and HTML further in a similar way like we did in C with header files and use type selectors
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			body
+			{
+				text-align: center;
+			}
+			header
+			{
+				font-size: large;
+			}
+			main
+			{
+				font-size: medium;
+			}
+			footer
+			{
+				font-size: small;
+			}
+		</style>
+		<title>
+			Home
+		</title>
+	</head>
+	<body>
+		<header>
+			John Harvard
+		</header>
+		<main>
+		Welcome to my Homepage
+		</main>
+		<footer>
+		Copyright &#169; Thomas
+		</footer>
+	</body>
+</html>
+```
+
+- So we define each CSS style in the header section of our HTML file with a style tag instead of a style attribute. We declare what we want for each section of our HTML file by refering to its name (header, main, footer) and set our CSS within curly braces
+- But if we want to be able to reuse our CSS for other page of our homepage aswell we could create classes so we can refer to them and source out our CSS to our own home.css file with class selectors.
+
+```CSS
+.centered
+{
+	text-align: center;
+}
+.large
+{
+	font-size: large;
+}
+.medium
+{
+	font-size: medium;
+}
+.small
+{
+	font-size: small;
+}
+```
+
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link href="home.css" rel="stylesheet">
+		<title>
+			Home
+		</title>
+	</head>
+	<body class="centered">
+		<header class="large">
+			John Harvard
+		</header>
+		<main class="medium">
+		Welcome to my Homepage
+		</main>
+		<footer class="small">
+		Copyright &#169; Thomas
+		</footer>
+	</body>
+</html>
+```
+
+- Of course you do not have to reinvent the wheel but rather work smart and use bootstrap as a premade CSS stylesheet. You can visit their website, include the stylesheet in your homepage and then use their documentation to see how they do things and pretty up your website
+
+## JavaScript
+- Until now all code we wrote in VSCode ran in the terminal. Now with JavaScript when we use it for a Website, the browser gets all the HTML, CSS and JavaScript files and will actually execute it within the browser. You could run JavaScript on a server or your pc terminal using node.js but we will concentrate on JavaScript running in the browser
+
+```Javascript
+// Set variable
+let counter = 1;
+
+// Increment variable
+counter = counter + 1;
+counter += 1;
+counter++;
+
+// If Statement
+if (x < y)
+{
+	// do something
+}
+else if
+{
+	// do someting else
+}
+else
+{
+	// or this
+}
+
+// While Loop
+while (true)
+{
+	// do this
+}
+
+// For Loop
+for (let i = 0; i < 10; i++)
+{
+	// do this
+}
+```
+
+- With this we can create interactive websites that do not remain in the state you downloaded them but they change with JavaScript running in the background, talking to a server, processing information, so the website becomes interactive
+- How can we implement JavaScript in our HTML?
+
+```HTML
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script>
+		Java goes here
+		</script>
+		<title>
+			Home
+		</title>
+	</head>
+```
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="scripts.js"></script>
+		<title>
+			Home
+		</title>
+	</head>
+```
+
+- Now we can create a small example where a user submits his name and will be greeted by a JavaScript
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script>
+			function greet()
+			{
+				let name = document.querySelector('#name').value;
+				alert('Hello, ' + name);
+			}
+		</script>
+		<title>Hello</title>
+	</head>
+	<body>
+		<form onsumbit="greet(); return false;">
+			<input autocomplete="off" autofocus id="name" placeholder="Name" type="text">
+			<input type="submit">
+		</form>
+	</body>
+</html>
+```
+
+- But again like with CSS this could get messy fast so the proper way would be:
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Hello</title>
+	</head>
+	<body>
+		<form>
+			<input autocomplete="off" autofocus id="name" placeholder="Name" type="text">
+			<input type="submit">
+		</form>
+		<script>
+			function greet()
+			{
+				let name = document.querySelector('#name').value;
+				alert('Hello, ' + name);
+			}
+		document.querySelector('form').addEventListener('submit' greet)
+		</script>
+	</body>
+</html>
+```
+
+- So here we add an even listener to the form tag, listening if the submit button is pushed, and if so the greet function will be called
+***
+
+***
+# Lesson 9 -
