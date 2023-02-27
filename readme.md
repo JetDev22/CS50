@@ -34,7 +34,7 @@ Week  6 - Python..............................[DONE]
 
 Week  7 - SQL..................................[DONE]
 
-Week  8 - HTML, CSS, JavaScript....[TODO]
+Week  8 - HTML, CSS, JavaScript....[CURRENT]
 
 Week  9 - Flask................................[TODO]
 
