@@ -1944,8 +1944,9 @@ DELETE FROM users WHERE username = 'newman'
 ***
 
 ***
-# INTERNET PROTOCOL (IP)
+# IP
 ***
+- IP is the Internet Protocol
 - As discissed previously "the internet" is really an interconnected network comprised of smaller networks woven together and agreeing to communicate with one another
 - How do these networks know how to communicate with one another? This is the responsibility of the Internet Protocol "IP"
 - Though it's admittedly on an extremly small scale, this picture is misleading as it pertains to network communication
@@ -1974,8 +1975,9 @@ DELETE FROM users WHERE username = 'newman'
 ***
 
 ***
-# TRANSMISSION CONTROL PROTOCOL (TCP)
+# TCP
 ***
+- TCP stand for Transmission Control Protocol
 - If the Internet Protocol (IP) is thought of as the protocol for getting information from a sending machine to a receiving machine, the Transmission Control Protocol (TCP) can be thought of as directing the transmitted packet to the correct program on the receiving machine
 - As you might imagine, it is important to be able to identify both where the receiver is and what the packet is for, so the TCP and IP are almost an inseperable pair, hence TCP/IP
 - Each program/utility/service on a machine is assigned a port number. Coupled with an IP address, we can now uniquely identify a specific program on a specific machine
@@ -2000,8 +2002,9 @@ DELETE FROM users WHERE username = 'newman'
 ***
 
 ***
-# HYPER TEXT TRANSFER PROTOCOL (HTTP)
+# HTTP
 ***
+- HTTP stand for Hyper Text Transfer Protocol
 - In addition to protocols that dictate how information is communicated from machine to machine and application to application (TCP/IP) it is frequently the case that the application itself has a system of rules for how to interpret the data that was sent
 - HTTP is one such example of an application layer protocol, which specifically dictates the format by which clients request web pages from a server and the format via which servers return information to clients
 - Other application layer protocols include:
@@ -2026,4 +2029,436 @@ DELETE FROM users WHERE username = 'newman'
 
 ***
 # HTML
+***
+- HTML stands for Hypertext Markup Language
+- HTML is a language, but it is NOT a programming language. It lacks concepts of variables, logic, functions and the like
+- Rather it is a markup language, using angle-bracket enclosed tags to semantically define the structure of a web page, causing the plain text inside of sets of tags to be interpreted by web browsers in different ways
+
+```HTML
+<html>
+	<head>
+		<title>
+			Hello World
+		</title>
+	</head>
+	<body>
+		World, Hello
+	</body>
+</html>
+```
+
+- Notice how the markup allows us to convey extra information about the text we've written
+- There are over 100 HTML tags and lots of great resources online to find them. We won't cover them all here
+- Another interesting way to learn about HTML tags is to view the source of a website you frequent by opening your browser of choice's developer tools
+- Common HTML Tags:
+
+```HTML
+
+Text between these tags will be rendered boldface
+<b> </b>
+
+Text between these tags will be rendered italics
+<i> </i>
+
+Text between these tags will be rendered underlined
+<u> </u>
+
+Text between these tags will be rendered paragraphed
+<p> </p>
+
+Text between these tags will be rendered as X-Level section header X from 1 to 6
+<hX></hX>
+
+Demarcate beginning and end of unordered (bulleted) list
+<ul> </ul>
+
+Demarcate beginning and end of ordered (numbered) list
+<ol> </ol>
+
+Demarcate list items with an ordered/unordered list
+<li> </li>
+
+Demarcate the beginning and end of a table definition
+<table> </table>
+
+Demarcate the beginning and end of a row within a table
+<tr> </tr>
+
+Demarcate the beginning and end of a column within a row within a table
+<td> </td>
+
+Demarcate the beginning and end of an HTMl form
+<form> </form>
+
+Demarcate the beginning and end of an arbitrary HTML page division
+<div> </div>
+
+Define a field with an HTML form. X is a unique id for that field, Y is what type of data it accepts
+<input name=X type=Y />
+
+Creates a hyperlink to a webpage X with the text between the tags rendered and cuntional as the link text
+<a href="https://www.google.de"> google </a>
+
+Another self-closing tag for displaying an image at X, with possible additional attributes
+<img src=X ... />
+
+Specific to HTML5, lets the browser know that's the standard you're using
+<!DOCTYPE html>
+
+Demarcate the beginning and end of an HTML comment
+<!--  text -->
+```
+
+- Beyond these tags as explained here, each can also have multiple attributes that slightly modify the tag
+- It is important that HTML you write be well-formed. Every tag you open should be closed (unless it is a self-closing tag), and tags should be closed in reverse order of when they were opened
+- Unlike C, your HTML will not necessarily fail with syntax errors if not well-formed, so it's up to you to be vigilant
+- Because it can be an arduous task to investigate this, be sure to use online HTML validators to help
+***
+
+***
+# CSS
+***
+- CSS stand for Cascading Style Sheets
+- CSS is another language we use when constructing websites. If HTML is used to organize the content that we aim to display on our pages, then CSS is the tool we use to customize our website's look and feel
+- Like HTML, CSS is not a programming language, it lacks logic. Rather it is a styling language and its syntax describes how certain attributes of HTML elements should be modified
+
+```CSS
+body
+{
+	background-color: blue;
+}
+```
+
+- A style sheet is constructed by identifying a selector (in the example above it is body) and then an open curly brace to indicate the beginning of the style sheet for that selector
+- In between the curly brace you place a list of key-value pairs of style properties and values for those properties, each declaration ending with a semicolon
+- Then a closing curly brace terminates the style sheet
+- Common CSS properties:
+
+```CSS
+
+/* Applies a border of the specific color, width and style */
+border: style color width;
+
+/* Sets the background color*/
+background-color: [keyword or #6-digit-hex];
+
+/* Sets the foreground color */
+color: [keyword or # 6-digit-hex];
+
+/* Can use keywords, fixed points, percentage or base off most recent font size */
+font-size: [absolute size or relative size]
+
+/* Certain "web safe" fonts are pre-defined in CSS */
+font-family: [font name or generic name]
+
+/* Text align */
+text-align: [left right center justify]
+```
+
+- Your selectors don't have to apply only to HTML tag categories. There also exist ID selectors and class selectors
+- A tag selector will apply to all elements with a given HTML tag
+
+```CSS
+
+h2
+{
+	font-familiy: times;
+	color: #fefefe;
+}
+```
+
+- An ID selector will apply to an HTML tag with a unique identifier
+
+```CSS
+
+#unique
+{
+	border: 4px dotted blue;
+	text-align: right;
+}
+```
+
+- A class selector will apply only to those HTML tags that have been given identical "class" attributes
+
+```CSS
+
+.students
+{
+	background-color: yellow;
+	opacity: 0.7;
+}
+```
+
+- Style sheets can be written directly into your HTML by placing them within <style> </style> tags within your page's head
+- Style sheets can also be written as seperate CSS files and then linked into your document by using <link> tags within your page's head to accomplish this [prefered way!]
+
+```HTML
+<html>
+	<head>
+		<link href="my.css" rel="stylesheet" />
+	</head>
+</html>
+```
+
+***
+
+***
+# JAVASCRIPT
+***
+- JavaScript is a modern programming language that is derived from the syntax at C
+- It has been around just about as long as Python, having been invented a few years later in 1995
+- JavaScript, HTML and CSS make up three languages defining most of the user experience on the web
+- To start writing JavaScript open up a file with the .js file extension
+- No need for any code delimiters like you may be familiar with if you've used a language like PHP. Our website will know that our file is JavaScript because we'll explicitly tell it as much in an HTML tag
+- Unlike Python which runs server-side, JavaScript applications run client_side on your own machine
+- Just like CSS with <style> </style> tags, you can directly write your JavaScript between <script> </script> tags
+- Just like with <link> tags you can write your JavaScript in a seperate file and link them in by using the src attribute of the <script> </script> tag [prefered way!]
+
+## Variables
+- JavaScript variables are similar to Python variables. No type specifier and when local variables are first declared, preface them with a var keyword
+
+```JavaScript
+
+// local variable
+var x = 44;
+
+// global variable
+x = 44;
+```
+
+## Conditionals
+- All of the old favorites from C are still available for you to use
+	- if
+	- else if
+	- else
+	- switch
+	- ?:
+
+```JavaScript
+// if statement
+if (condition){
+//code
+}
+else{
+//code
+}
+```
+
+## Loops
+- All of the old favorites from C are still available for you to use
+	- while
+	- do-while
+	- for
+
+## Functions
+- All functions are introduced with the function keyword
+- JavaScript functions, particulary those bound specifically to HTML elements, can be anonymous (you dont't have to give them a name)
+
+## Arrays
+- Declaring an array is pretty straightforward
+
+```JavaScript
+
+var nums = [1, 2, 3, 4, 5];
+```
+
+## Objects
+- JavaScript has the ability to behave in a few different ways but in particular it can behave as an object-oriented programming language
+- An object is sort of analogous to a C structure
+- C structures contain a number of fields or members which we might also call properties. But the properties themselves can not ever stand on their own
+
+```C
+struct car
+{
+	int year;
+	char model[10];
+}
+struct car herbie;
+herbie.year = 1963;
+herbie.model = "Beetle";
+// Note we always refer to herbie not just year or model by itself
+```
+
+- Objects in JavaScript meanwhile have properties but also methods or functions that are inherent to the object and mean nothing outside of it. Thus like properties can methods not ever stand on their own
+
+```JavaScript
+object.function();
+```
+
+- The fields and methods of an object are similar in spirit to the idea of a dictionary with which we're familiar from Python
+
+```JavaScript
+var herbie = {year : 1963, model : "Beetle"};
+```
+
+## Loops (redux)
+- How do we iterate across all of the key-value pairs of an object or indeed all of the elements of an array?
+
+```Python
+for key in list:
+	# use the key in here as stand-in for list[i]
+```
+
+```JavaScript
+// iterate over keys
+for (var key in object)
+{
+	// use object[key] in here
+}
+
+// iterate over values
+for (var key of object)
+{
+	// use key in here
+}
+```
+
+```JavaScript
+// Example
+
+var wkArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+for (var day in wkArray)
+{
+	console.log(day);
+}
+
+// Output:
+// 0
+// 1
+// 2
+// ...
+// because there are not keys, only values so it prints the indicies
+
+for (var day of wkArray)
+{
+	console.log(day);
+}
+
+// Output:
+// Monday
+// Tuesday
+// ...
+
+// Printing and variable interpolation
+console.log(wkArray[day] + ' is day number ' + (parseInt(day) + 1) + ' of the week!');
+
+//Output:
+// Monday is day number 1 of the week!
+// Tuesday is day number 2 of the week!
+// ...
+// pareseInt makes the day an int
+```
+
+- Since we are not declaring types for variables, JavaScript is basically guessing them for us, which may sometime lead to a wrong interpretation. In the example above (for the console.log) it would see day + 1 as string "day" + "1" and result in "day1". To avoid this, we specifiy day to be read as Int (parseInt)
+
+## Functions (redux)
+- Arrays are a special case of an object (in fact, everything in JavaScript is a special case of an object. var x = 4 is an object with only one property) and has numerous methods that can be applied to them
+
+```JavaScript
+array.size();
+array.pop();
+array.push(x);
+array.shift();
+```
+
+- There is also a method for arrays called map(), which can be used to apply a function to all elements of an array. A great situation to use an anonymous function
+
+```JavaScript
+var nums = [1, 2, 3, 4, 5];
+
+// Apply an ananymous function (function has no name) to all elements of the array. The function takes num as input and multiplies each element by 2 and returns the array in its altered state
+nums = nums.map(function(num){
+	return num * 2;
+})
+```
+
+## Events
+- An event in HTML and JavaScript is a response to user interaction with the web page. A user clicks a button, a page has finished loading, a user has hovered over a portion of the page, the user typed in an input field
+- JavaScript has support for event handlers which are callback functions that respond to HTML events. Many HTML elements have support for events as an attribute
+
+```HTML
+<html>
+	<head>
+		<title>Event Handler</title>
+	</head>
+	<body>
+		<button onclick="">Button 1</button>
+		<button onclick="">Button 2</button>
+	</body>
+</html>
+```
+
+- We can write a generic event handler in JavaScript, creating an even object that will tell us which of these buttons was clicked
+
+```HTML
+<html>
+	<head>
+		<title>Event Handler</title>
+	</head>
+	<body>
+		<button onclick="alertName(event)">Button 1</button>
+		<button onclick="alertName(event)">Button 2</button>
+	</body>
+</html>
+```
+
+```JavaScript
+function alertName(event)
+{
+	var trigger = event.srcElement;
+	alert('You clicked on ' + trigger.innerHTML);
+}
+```
+
+- innerHTML is what is between the <button></button> tags. So here it is either Button 1 or Button 2
+***
+
+***
+# DOM
+***
+- DOM stand for Document Object Model
+- As we've seen JavaScript objects are incredibly flexible and can contain various fields, even when those fields are other objects
+- The document object is one way of employing this paradigm whereby that object organizes the entire contents of a web page
+- By organizing an entire page into a JavaScript object, we can manipulate the page's elements programmatically
+
+```HTML
+<html>
+	<head>
+		<title>Hello, World</title>
+	</head>
+	<body>
+		<h2>Here's my page</h2>
+		<p>World, Hello</p>
+		<a href="test.html">Link</a>
+	</body>
+</html>
+```
+
+![image info](./Pictures/dom1.png)
+
+- The document object itself, as well as all of the objects contained within it, have a number of properties and a number of methods than can be used to drill down to a very specific pieve of your website
+- By resetting those properties or calling certain methods, the contents of our web pages can change without us needing to refresh the page
+
+![image info](./Pictures/dom2.png)
+
+![image info](./Pictures/dom3.png)
+
+- If we start from document we can get to any piece of our web page that we choose through careful use of the DOM properties and methods
+
+## jQuery
+- Because DOM manipulation is so common with JavaScript and because the JavaScript to do so can get quite lengthy, people wanted alternatives
+- jQery is a popular open-source library released in 2006, that is designed to simplify client-side scripting (such as DOM manipulations)
+
+```JavaScript
+
+// Find the node called colorDiv and change background color to green using only JavaScript
+document.getElementById('colorDiv').style.backgroundColor = 'green';
+
+// The same using jQuery
+$('#colorDiv').css('background-color', 'green');
+```
+
+***
+
 ***
