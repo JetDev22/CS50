@@ -1,0 +1,59 @@
+.nav-tabs .nav-item .nav-link {
+    color: black;
+    font-weight: bolder;
+    font-size: 20px;
+  }
+  
+  .nav-tabs .nav-item .nav-link.active {
+    color: #1860a8;
+  }
+  
+  .tab-content {
+    border: 1px solid #dee2e6;
+    border-top: transparent;
+    padding: 15px;
+  }
+  
+  .tab-content .tab-pane {
+    background-color: #FFF;
+    color: #0080FF;
+    min-height: 200px;
+    height: auto;
+  }
+
+#navBar{
+    background-color: white;
+}
+
+#todoInput{
+    margin-top: 20px;
+    margin-left: 40%;
+    margin-right: 20%;
+    padding: 5px;
+    font-size: large;
+    
+}
+
+input{
+    margin-top: 5px;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+#isAndrea, #isThomas, #isBoth{
+    display: inline;
+    width: 15px;
+    height: 15px;
+}
+
+#icon{
+    display: inline; 
+    height: 20px; 
+    width: 20px;
+   }
+
+.table{
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+   }
