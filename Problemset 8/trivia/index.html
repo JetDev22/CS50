@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            // TODO: Add code to check answers to questions
+            function multipleChoice(element){
+                var correctAnswer = "GREEN HYDRAULIC SYSTEM";
+                if (element.innerHTML == correctAnswer){
+                    document.getElementById("resultMultipleChoice").innerHTML = "CORRECT";
+                    document.getElementById(element.id).style.background = "#00FF00"
+                }
+                else{
+                    document.getElementById("resultMultipleChoice").innerHTML = "INCORRECT!";
+                    document.getElementById(element.id).style.background = "#FF0000"
+                }
+            }
+
+            function freeText(element){
+                var correctAnswer = "3000";
+                if (document.getElementById("textField").value == correctAnswer){
+                    document.getElementById("freeTextResult").innerHTML = "CORRENT";
+                    document.getElementById("textField").style.background = "#00FF00";
+                }
+                else{
+                    document.getElementById("freeTextResult").innerHTML = "INCORRENT!";
+                    document.getElementById("textField").style.background = "#FF0000";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <!-- TODO: Add multiple choice question here -->
+                <h3>Which hydraulic system drives the main landing gear on an A300-600RF?</h3>
+                <h4 id="resultMultipleChoice"></h4>
+                <button id="firstAnswer" onclick="multipleChoice(this)">GREEN HYDRAULIC SYSTEM</button>
+                <button id="secondAnswer" onclick="multipleChoice(this)">YELLOW HYDRAULIC SYSTEM</button>
+                <button id="thridAnswer" onclick="multipleChoice(this)">BLUE HYDRAULIC SYSTEM</button>
+                <button id="fourthAnswer" onclick="multipleChoice(this)">GREEN and YELLOW HYDRAULIC SYSTEM</button>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>What is the normal hydraulic pressure for all three hydraulic systems in psi</h3>
+                <h4 id="freeTextResult"></h4>
+                <input id="textField" placeholder="Enter your Answer here">
+                <button id="submit" type="submit" onclick="freeText()">SUBMIT</button>
+            </div>
+        </div>
+    </body>
+</html>
