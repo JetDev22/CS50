@@ -35,23 +35,22 @@
     <div id="todoInput">
       <h3>Add To-Do</h3>
       <img src="icons/calendar.svg" id="icon">
-      <input type="text" id="todoDate" placeholder="Date" size="30">
-      <input type="checkbox" id="isAndrea">Andrea<br>
+      <input type="text" id="todoDate" placeholder="Date" size="30"><br>
       <img src="icons/clock.svg" id="icon">
-      <input type="text" id="todoTime" placeholder="Time" size="30">
-      <input type="checkbox" id="isThomas">Thomas<br>
+      <input type="text" id="todoTime" placeholder="Time" size="30"><br>
       <img src="icons/text.svg" id="icon">
-      <input type="text" id="todoDescrip" placeholder="Description" size="30">
-      <input type="checkbox" id="isBoth">Both<br><br>
-      <button type="button" class="btn btn-secondary btn-lr" id="todoSubmit">submit</button>
-      <button type="button" class="btn btn-secondary btn-lr" id="todoClear">clear</button>
-      <button type="button" class="btn btn-secondary btn-lr" id="todoShowOpen">show active</button>
-      <button type="button" class="btn btn-secondary btn-lr" id="todoShowDone">show done</button>
+      <input type="text" id="todoDescrip" placeholder="Description" size="30"><br>
+      <input type="checkbox" id="isAndrea">Andrea<br>
+      <input type="checkbox" id="isThomas">Thomas<br>
+      <input type="checkbox" id="isBoth">Both<br>
+      <button type="button" class="btn btn-secondary btn-lr" id="todoSubmit" onclick="addTodo()">submit</button>
+      <button type="button" class="btn btn-secondary btn-lr" id="todoClear" onclick="clearInput()">clear</button>
+      <button type="button" class="btn btn-secondary btn-lr" id="todoRefresh" onclick="loadFromMemory()">refresh</button>
     </div>
 
     <!--table to display todos-->
     <div id="todoTableView">
-      <table class="table">
+      <table class="table" id="tableTodo">
         <thead>
           <tr>
             <th scope="col">Date</th>
@@ -61,15 +60,6 @@
             <th scope="col">Done</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>14.04.2023</td>
-            <td>14:00</td>
-            <td>Bring Car to shop</td>
-            <td>Andrea</td>
-            <td><input type="checkbox" id="done"></td>
-          </tr>
-        </tbody>
       </table>
     </div>
 

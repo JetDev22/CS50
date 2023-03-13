@@ -40,6 +40,10 @@ input{
     padding: 5px;
 }
 
+button{
+  margin-top: 5px;
+}
+
 #isAndrea, #isThomas, #isBoth{
     display: inline;
     width: 15px;
