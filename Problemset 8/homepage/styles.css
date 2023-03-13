@@ -1,3 +1,20 @@
+/* General CSS */
+input{
+  margin-top: 5px;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+button{
+margin-top: 5px;
+}
+
+ol{
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+/* CSS overlay for bootstrap */
 .nav-tabs .nav-item .nav-link {
     color: black;
     font-weight: bolder;
@@ -25,6 +42,7 @@
     background-color: white;
 }
 
+/* CSS for ToDo page */
 #todoInput{
     margin-top: 20px;
     margin-left: 40%;
@@ -32,16 +50,6 @@
     padding: 5px;
     font-size: large;
     
-}
-
-input{
-    margin-top: 5px;
-    margin-right: 10px;
-    padding: 5px;
-}
-
-button{
-  margin-top: 5px;
 }
 
 #isAndrea, #isThomas, #isBoth{
@@ -61,3 +69,10 @@ button{
     margin-left: 50px;
     margin-right: 50px;
    }
+
+/* CSS for Home */
+#homeHeader{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 20px;
+}
