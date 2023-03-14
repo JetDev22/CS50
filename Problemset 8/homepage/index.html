@@ -14,35 +14,36 @@
   <body>
 
     <!--navbar with bootsrap-->
-    <div id="navBar">
-        <ul class="nav nav-tabs justify-content-center">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="todo.html">To-Do</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="away.html">Who's Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="freddi.html">Freddi</a>
-              </li>
-          </ul>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link fs-5 fw-bold active" aria-current="page" href="index.html">Home</a>
+            <a class="nav-link fs-5 fw-bold" href="todo.html">To-Do</a>
+            <a class="nav-link fs-5 fw-bold" href="away.html">Who's Home</a>
+            <a class="nav-link fs-5 fw-bold" href="freddi.html">Freddi</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
     <!--navbar with bootsrap-->
-    <div id="homeHeader">
-      <h1>CS50 Problemset 8 - Homepage</h1><br>
-      <p>
-        For this project I decided to to the following four required pages:
-        <ol>
-          <li>This Home to describe the project</li>
-          <li>A To-Do list with JavaScript functionality</li>
-          <li>A visual for when I am on rotation and when I'll be home</li>
-          <li>A "did our dog get his pill" Info</li>
-        </ol>
-      </p>
+    <div class="card mx-auto" style="width: 40rem;">
+      <div class="card-body">
+        <h5 class="card-title text-center fs-5 fw-bold">CS50 Problemset 8 - Homepage</h5>
+        <p class="card-text">ToDo:<br>
+          <ul>
+            <li>save states to local storage</li>
+            <li>add pictures from phone</li>
+            <li>state of all other pages in card here</li>
+            <li>tackle rest of pages</li>
+          </ul>
+        </p>
+      </div>
     </div>
 
     <!--bootstrap-->

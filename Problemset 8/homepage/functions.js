@@ -93,3 +93,19 @@ function loadFromMemory(){
 
     // iterate through list and fill table
 }
+
+function checkBoxControl(self){
+    // allow only one checbox to be active
+    if (self.id == "isAndrea"){
+        document.getElementById("isThomas").checked = false;
+        document.getElementById("isBoth").checked = false;
+    }
+    else if (self.id == "isThomas"){
+        document.getElementById("isAndrea").checked = false;
+        document.getElementById("isBoth").checked = false;
+    }
+    else{
+        document.getElementById("isAndrea").checked = false;
+        document.getElementById("isThomas").checked = false;
+    }
+}

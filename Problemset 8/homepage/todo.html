@@ -14,43 +14,47 @@
   <body>
 
     <!--navbar with bootsrap-->
-    <div id="navBar">
-        <ul class="nav nav-tabs justify-content-center">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="todo.html">To-Do</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="away.html">Who's Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="freddi.html">Freddi</a>
-              </li>
-          </ul>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link fs-5 fw-bold" href="index.html">Home</a>
+            <a class="nav-link fs-5 fw-bold active" aria-current="page" href="todo.html">To-Do</a>
+            <a class="nav-link fs-5 fw-bold" href="away.html">Who's Home</a>
+            <a class="nav-link fs-5 fw-bold" href="freddi.html">Freddi</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
     <!--todo input field-->
-    <div id="todoInput">
-      <h3>Add To-Do</h3>
-      <img src="icons/calendar.svg" id="icon">
-      <input type="text" id="todoDate" placeholder="Date" size="30"><br>
-      <img src="icons/clock.svg" id="icon">
-      <input type="text" id="todoTime" placeholder="Time" size="30"><br>
-      <img src="icons/text.svg" id="icon">
-      <input type="text" id="todoDescrip" placeholder="Description" size="30"><br>
-      <input type="checkbox" id="isAndrea">Andrea<br>
-      <input type="checkbox" id="isThomas">Thomas<br>
-      <input type="checkbox" id="isBoth">Both<br>
-      <button type="button" class="btn btn-secondary btn-lr" id="todoSubmit" onclick="addTodo()">submit</button>
-      <button type="button" class="btn btn-secondary btn-lr" id="todoClear" onclick="clearInput()">clear</button>
-      <button type="button" class="btn btn-secondary btn-lr" id="todoRefresh" onclick="loadFromMemory()">refresh</button>
+    <div class="card mx-auto" style="width: 25rem;">
+      <div class="card-body mx-auto">
+        <h5 class="card-title fs-3 fw-bold text-center">Enter To-Do Here</h5>
+        <div id="todoInput">
+          <img src="icons/calendar.svg" id="iconCal">
+          <input type="text" id="todoDate" placeholder="Date" size="30"><br>
+          <img src="icons/clock.svg" id="iconClock">
+          <input type="text" id="todoTime" placeholder="Time" size="30"><br>
+          <img src="icons/text.svg" id="iconText">
+          <input type="text" id="todoDescrip" placeholder="Description" size="30"><br>
+          <input type="checkbox" id="isAndrea" onclick="checkBoxControl(this)">Andrea<br>
+          <input type="checkbox" id="isThomas" onclick="checkBoxControl(this)">Thomas<br>
+          <input type="checkbox" id="isBoth" onclick="checkBoxControl(this)">Both<br>
+          <button type="button" class="btn btn-secondary btn-lr" id="todoSubmit" onclick="addTodo()">submit</button>
+          <button type="button" class="btn btn-secondary btn-lr" id="todoClear" onclick="clearInput()">clear</button>
+          <button type="button" class="btn btn-secondary btn-lr" id="todoRefresh" onclick="loadFromMemory()">refresh</button>
+        </div>
+      </div>
     </div>
 
     <!--table to display todos-->
     <div id="todoTableView">
-      <table class="table" id="tableTodo">
+      <table class="table table-sm" id="tableTodo">
         <thead>
           <tr>
             <th scope="col">Date</th>
