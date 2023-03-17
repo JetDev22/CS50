@@ -9,9 +9,9 @@
     <!--own css-->
     <link href="styles.css" rel="stylesheet">
     <!--own JavaScript-->
-    <script type="text/javascript" src="functions.js" ></script>
+    <script type="text/javascript" src="functions.js"></script>
   </head>
-  <body>
+  <body onload="initFreddi()">
 
     <!--navbar with bootsrap-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -22,10 +22,10 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link fs-5 fw-bold active" aria-current="page" href="index.html">Home</a>
+            <a class="nav-link fs-5 fw-bold" href="index.html">Home</a>
             <a class="nav-link fs-5 fw-bold" href="todo.html">To-Do</a>
             <a class="nav-link fs-5 fw-bold" href="weather.html">Weather</a>
-            <a class="nav-link fs-5 fw-bold" href="freddi.html">Freddi</a>
+            <a class="nav-link fs-5 fw-bold active" aria-current="page" href="freddi.html">Freddi</a>
           </div>
         </div>
       </div>
@@ -33,17 +33,13 @@
 
     <!--card with bootsrap-->
     <div class="card mx-auto" style="width: 50rem;">
-      <img class="card-img-top" src="pics/code.jpg" alt="Card image cap" id="indexPic">
-      <div class="card-body">
-        <h5 class="card-title text-center fs-2 fw-bold">CS50 Problemset 8 - Homepage</h5>
-        <p class="card-text fs-3 fw-bold">Content<br>
-          <ol>
-            <li>This starting page, using bootstrap cards</li>
-            <li>To-Do List using javascript and local storage</li>
-            <li>Away, where you can enter when you are at work</li>
-            <li>Freddi, to track if the dog got his medicine</li>
-          </ol>
-        </p>
+      <img class="card-img-top" src="icons/pill.svg" alt="Card image cap" id="picFreddi">
+      <div class="card-body text-center">
+        <h5 class="fs-1 fw-bold">Did Freddi get his pill?</h5>
+        <button type="button" class="btn btn-secondary btn-lg" id="morningButton" onclick="freddiButton(this)">Morning</button>
+        <button type="button" class="btn btn-secondary btn-lg" id="noonButton" onclick="freddiButton(this)">Noon</button>
+        <button type="button" class="btn btn-secondary btn-lg" id="eveningButton" onclick="freddiButton(this)">Evening</button><br>
+        <button type="button" class="btn btn-warning fs-4 fw-bold" onclick="freddiReset()">Reset</button>
       </div>
     </div>
 
