@@ -7,7 +7,7 @@ var todoTableRowIDs = 0;
 
 // TODO FUNCTIONS //
 
-function addTodo(){
+function addTodo(memoryList){
     // create table row from input
     let table = document.getElementById("tableTodo");
     let row = table.insertRow(-1);
@@ -19,40 +19,65 @@ function addTodo(){
     let rowDescription = row.insertCell(2);
     let rowFor = row.insertCell(3);
     let rowDone = row.insertCell(4);
-
-    // save current input to list of current todos
-    let tempoList = []
-    tempoList.push(document.getElementById("todoDate").value);
-    tempoList.push(document.getElementById("todoTime").value);
-    tempoList.push(document.getElementById("todoDescrip").value);
-
     // add checkbox to table and pass row ID to deleteRow function on click
     let checkBox = ('<input type="checkbox" id="todoIsDone" onclick="deleteRow(parentNode.parentNode)">');
 
-    // fill each created cell with content
-    rowDate.innerHTML = document.getElementById("todoDate").value;
-    rowTime.innerHTML = document.getElementById("todoTime").value;
-    rowDescription.innerHTML = document.getElementById("todoDescrip").value;
+    // Check if populating from input field or memory
+    if (arguments[0] != null){
+        // fill each created cell with content
+        rowDate.innerHTML = memoryList[0];
+        rowTime.innerHTML = memoryList[1];
+        rowDescription.innerHTML = memoryList[2];
 
-    // Check checkbox to determine for who
-    if (document.getElementById("isAndrea").checked == true){
-        rowFor.innerHTML = "Andrea";
-        tempoList.push("Andrea");
+        // Check checkbox to determine for who
+        if (memoryList[3] == "Andrea"){
+            rowFor.innerHTML = "Andrea";
+        }
+        else if (memoryList[3] == "Thomas"){
+            rowFor.innerHTML = "Thomas";
+        }
+        else if (memoryList[3] == "Andrea & Thomas"){
+            rowFor.innerHTML = "Andrea & Thomas";
+        }
+        else {
+            rowFor.innerHTML = "-";
+        }
+        rowDone.innerHTML = checkBox;
+        todoTableRowIDs += 1;
     }
-    else if (document.getElementById("isThomas").checked == true){
-        rowFor.innerHTML = "Thomas";
-        tempoList.push("Thomas");
+    else{
+        // save current input to list of current todos
+        let tempoList = []
+        tempoList.push(document.getElementById("todoDate").value);
+        tempoList.push(document.getElementById("todoTime").value);
+        tempoList.push(document.getElementById("todoDescrip").value);
+
+        // fill each created cell with content
+        rowDate.innerHTML = document.getElementById("todoDate").value;
+        rowTime.innerHTML = document.getElementById("todoTime").value;
+        rowDescription.innerHTML = document.getElementById("todoDescrip").value;
+
+        // Check checkbox to determine for who
+        if (document.getElementById("isAndrea").checked == true){
+            rowFor.innerHTML = "Andrea";
+            tempoList.push("Andrea");
+        }
+        else if (document.getElementById("isThomas").checked == true){
+            rowFor.innerHTML = "Thomas";
+            tempoList.push("Thomas");
+        }
+        else if (document.getElementById("isBoth").checked == true){
+            rowFor.innerHTML = "Andrea & Thomas";
+            tempoList.push("Andrea & Thomas");
+        }
+        else {
+            rowFor.innerHTML = "-";
+        }
+        rowDone.innerHTML = checkBox;
+        currentTodos.push(tempoList);
+        todoTableRowIDs += 1;
     }
-    else if (document.getElementById("isBoth").checked == true){
-        rowFor.innerHTML = "Andrea & Thomas";
-        tempoList.push("Andrea & Thomas");
-    }
-    else {
-        rowFor.innerHTML = "-";
-    }
-    rowDone.innerHTML = checkBox;
-    currentTodos.push(tempoList);
-    todoTableRowIDs += 1;
+    saveTodoToMemory();
     clearInput();
 }
 
@@ -88,10 +113,17 @@ function deleteRow(element){
     completedTodos += 1;
 }
 
-function loadFromMemory(){
-    // load currentTodo list from memory
+function loadTodoFromMemory(){
+    // load array from local storage
+    var currentTodos = JSON.parse(localStorage.getItem('todo'));
+    for (var i = 0; i < currentTodos.length; i++){
+        addTodo(currentTodos[i]);
+    }
+}
 
-    // iterate through list and fill table
+function saveTodoToMemory(){
+    // save todo array to local storage
+    localStorage.setItem('todo', JSON.stringify(currentTodos));
 }
 
 function checkBoxControl(self){
