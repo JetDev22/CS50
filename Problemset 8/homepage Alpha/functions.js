@@ -77,15 +77,7 @@ function addTodo(memoryList){
             rowFor.innerHTML = "-";
         }
         rowDone.innerHTML = checkBox;
-        if (currentTodos){
-            currentTodos.push(tempoList);
-            saveTodoToMemory();
-        }
-        else{
-            currentTodos = [];
-            currentTodos.push(tempoList);
-            saveTodoToMemory();
-        }
+        currentTodos.push(tempoList);
         todoTableRowIDs += 1;
     }
     saveTodoToMemory();
@@ -133,14 +125,9 @@ function deleteRow(element){
 
 function loadTodoFromMemory(){
     // load array from local storage
-    if (JSON.parse(localStorage.getItem('todo')) == null){
-        var currentTodos = [];
-    }
-    else{
-        var currentTodos = JSON.parse(localStorage.getItem('todo'));
-        for (var i = 0; i < currentTodos.length; i++){
-            addTodo(currentTodos[i]);
-        }
+    var currentTodos = JSON.parse(localStorage.getItem('todo'));
+    for (var i = 0; i < currentTodos.length; i++){
+        addTodo(currentTodos[i]);
     }
 }
 
@@ -170,10 +157,9 @@ function checkBoxControl(self){
 //////////////// AWAY PAGE /////////////////
 ////////////////////////////////////////////
 
-//const buttonStatesFreddi = JSON.parse(localStorage.getItem('buttonStatesFreddi'));
+const buttonStatesFreddi = JSON.parse(localStorage.getItem('buttonStatesFreddi'));
 
 function freddiButton(element){
-    var buttonStatesFreddi = JSON.parse(localStorage.getItem('buttonStatesFreddi'));
     // Set button to green on click
     document.getElementById(element.id).style.backgroundColor = "#33bf2c";
     // add button state to array only if not yet added
@@ -185,24 +171,18 @@ function freddiButton(element){
 }
 
 function initFreddi(){
-    if (JSON.parse(localStorage.getItem('buttonStatesFreddi')) == null){
-        var buttonStatesFreddi = [];
-    }
-    else{
-        var buttonStatesFreddi = JSON.parse(localStorage.getItem('buttonStatesFreddi'));
-    }
+    const buttonStatesFreddi = JSON.parse(localStorage.getItem('buttonStatesFreddi'));
     // if buttonStates list is not empty, color buttons accordingly
-    if (buttonStatesFreddi && JSON.stringify(buttonStatesFreddi.length) != "0"){
+    if (buttonStatesFreddi.length != 0){
         for (var i = 0; i < buttonStatesFreddi.length; i++){
             document.getElementById(buttonStatesFreddi[i]).style.backgroundColor = "#33bf2c";
         }
     }
-    localStorage.setItem('buttonStatesFreddi', JSON.stringify(buttonStatesFreddi));
 }
 
 function freddiReset(){
     // empty list
-    var buttonStatesFreddi = [];
+    const buttonStatesFreddi = [];
     // set each button to original color
     document.getElementById("morningButton").style.backgroundColor = "#6c757d";
     document.getElementById("noonButton").style.backgroundColor = "#6c757d";

@@ -1895,4 +1895,159 @@ for (let i = 0; i < 10; i++)
 ***
 
 ***
-# Lesson 9 -
+# Lesson 9 - Flask
+***
+- Now we have outgrown http-server in our VSCode, because all it does is server static content
+- Today we will introduce another kind of server, that comes with Python, that allows us to not just server us webpages but also allows us to process user input
+- To use this new framework called Flask we have to adhere to some requirements. Specifically we need:
+	- app.py (main python program)
+	- requirements.txt (a simple list of all libraries you want/need to include)
+	- static/ (all files that do not change go here, like CSS, Javascript)
+	- templates/ (here all html files go)
+
+- First we create out app.py
+
+```Python
+from flask import FLASK, reder_template, request
+
+# Tells flask to generate the app with the name of this file
+app = Flask(__name__)
+
+# Tells the app when to call our functions
+@app.route("/")
+
+def index():
+	# render_template prints this file to the screen
+	return render_template("index.html")
+```
+
+- Now we create the required folder templates and create an index.html in that folder
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="initial-scale=1, width=device-width">
+		<title>hello</title>
+	</head>
+	<body>
+		hello, world
+	</body>
+</html>
+```
+
+- Now to start our webserver
+
+```bash
+$ flask run
+```
+
+- Now this just shows our index.html. But what if we want to do more, like read certain arguments from the url bar and display them on our index.html page
+- First we have to tell flask to look for this argument and assigne it to a variable
+
+```Python
+def index():
+	# This will look for a argument called name in the url and assigne it to the variable name
+	name = request.args.get("name")
+	# pass the variable name (sencond name), as variable name (first name) to the html file
+	return render_template("index.html", name=name)
+```
+
+- Now to use this variable in our html code we need to place a variable in the html code
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="initial-scale=1, width=device-width">
+		<title>hello</title>
+	</head>
+	<body>
+		hello, {{name}}
+	</body>
+</html>
+```
+
+![image info](./Pictures/flask0.png)
+
+- Now if we add /?name=David to the end of our URL, it will be read in our flask file and passed on to our index.html as variable name and will be displayed
+
+![image info](./Pictures/flask1.png)
+
+- So what we have is python code, that can access whatever comes after the ? in the url and use it. Multiple arguments are seperated by &
+- But of course we do not require the user to enter the arguments manually into the url bar of the browser. We pass these arguments, generated from user input by using the html input tag
+
+```Python
+from flask import FLASK, reder_template, request
+
+# Tells flask to generate the app with the name of this file
+app = Flask(__name__)
+
+# Tells the app when to call our functions
+@app.route("/")
+
+def index():
+	# render_template prints this file to the screen
+	return render_template("index.html")
+```
+
+- Here we change the python code to just display the content of index.html, when then change the html to the following
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="initial-scale=1, width=device-width">
+		<title>hello</title>
+	</head>
+	<body>
+		<form action="/greet" method="get">
+			<input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
+			<input type="submit">
+	</body>
+</html>
+```
+
+![image info](./Pictures/flask2.png)
+
+- This creates this HTML input field with the submit button. Now whenever the submit button is pressed, the action, as defined with action="/greet", will be executed and the user will be send to /greet and the url will change to .../greet?name=David
+- So now we need to update our backend to use the arguments given by the form in our url with our greet.html page. For that we add to our app.py the following
+
+```Python
+@app.route("/greet")
+def greet():
+	name = request.args.get("name")
+	return render_template("greet.html", name=name)
+```
+
+- Now we just have to add the greet.html to our templates folder 
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="initial-scale=1, width=device-width">
+		<title>greet</title>
+	</head>
+	<body>
+		Hello, {{ name }}
+	</body>
+</html>
+```
+
+- If the user would enter nothing, we would only show "Hello, ". To avoid this we can actually define a default in case no user input was given by adding the default to our request.args
+
+```Python
+name = request.args.get("name", "World")
+```
+
+- Even more robust, we could make the input into the form mandatory by adding required to the text field
+
+```HTML
+<input autocomplete="off" autofocus name="name" placeholder="Name" required type="text">
+```
+
+- Now if no input is given, the browser will through an error and let the user know, that we require an input before we can proceed and submit
+
+![image info](./Pictures/flask3.png)
+

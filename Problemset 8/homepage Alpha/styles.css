@@ -1,0 +1,64 @@
+.card{
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.table{
+  background-color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#todoTableView{
+  margin-right: 25px;
+  margin-left: 25px;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  background: white;
+  padding: 20px;
+}
+
+#picFreddi, #picWeather{
+  margin-top: 10px;
+  max-width: 10%;
+  height: auto;
+  align-self: center;
+}
+
+#indexPic{
+  height: auto;
+  margin-top: 10px;
+  max-width: 90%;
+  align-self: center;
+}
+
+html, body{
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  min-height: 100%;
+  height: 100%;
+
+}
+
+input[type="text"]{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+input[type="checkbox"]{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: 15px;
+  width: 15px;
+}
+
+button{
+  margin-top: 25px;
+  margin-bottom: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
+}

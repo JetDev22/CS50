@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CS50 Homepage Problemset 8</title>
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!--own css-->
+    <link href="styles.css" rel="stylesheet">
+    <!--own JavaScript-->
+    <script src="functions.js" ></script>
+  </head>
+  <body onload="loadTodoFromMemory()">
+
+    <!--navbar with bootsrap-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link fs-5 fw-bold" href="index.html">Home</a>
+            <a class="nav-link fs-5 fw-bold active" aria-current="page" href="todo.html">To-Do</a>
+            <a class="nav-link fs-5 fw-bold" href="weather.html">Weather</a>
+            <a class="nav-link fs-5 fw-bold" href="freddi.html">Freddi</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!--todo input field-->
+    <div class="card mx-auto" style="width: 25rem;">
+      <div class="card-body mx-auto">
+        <h5 class="card-title fs-3 fw-bold text-center">Enter To-Do Here</h5>
+        <div id="todoInput">
+          <img src="icons/calendar.svg" id="iconCal">
+          <input type="text" id="todoDate" placeholder="Date" size="30"><br>
+          <img src="icons/clock.svg" id="iconClock">
+          <input type="text" id="todoTime" placeholder="Time" size="30"><br>
+          <img src="icons/text.svg" id="iconText">
+          <input type="text" id="todoDescrip" placeholder="Description" size="30"><br>
+          <input type="checkbox" id="isAndrea" onclick="checkBoxControl(this)">Andrea<br>
+          <input type="checkbox" id="isThomas" onclick="checkBoxControl(this)">Thomas<br>
+          <input type="checkbox" id="isBoth" onclick="checkBoxControl(this)">Both<br>
+          <button type="button" class="btn btn-secondary btn-lr" id="todoSubmit" onclick="addTodo()">submit</button>
+          <button type="button" class="btn btn-secondary btn-lr" id="todoClear" onclick="clearInput()">clear</button>
+          <button type="button" class="btn btn-secondary btn-lr" id="todoRefresh" onclick="loadTodoFromMemory()">refresh</button>
+        </div>
+      </div>
+    </div>
+
+    <!--table to display todos-->
+    <div id="todoTableView">
+      <table class="table table-sm" id="tableTodo">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Description</th>
+            <th scope="col">For</th>
+            <th scope="col">Done</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+
+    <!--bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>
