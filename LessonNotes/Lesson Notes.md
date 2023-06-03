@@ -2004,6 +2004,7 @@ def index():
 		<form action="/greet" method="get">
 			<input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
 			<input type="submit">
+		</form>
 	</body>
 </html>
 ```
@@ -2051,3 +2052,87 @@ name = request.args.get("name", "World")
 
 ![image info](./Pictures/flask3.png)
 
+- By now we have to html files in our template folder (index and greet) but both share so many lines of html and differentiate themselves only in very few lines of code
+- We start of by creating a html page in the template folder called layout.html
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="initial-scale=1, width=device-width">
+		<title>greet</title>
+	</head>
+	<body>
+		{% block body %}{% endblock %}
+	</body>
+</html>
+```
+
+- Then we adjust our index.html to just fill in this placeholder
+
+```HTML
+{% extends "layout.html" %}
+
+{% body block %}
+<form action="/greet" method="get">
+	<input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
+	<input type="submit">
+</form>
+{% endblock %}
+```
+
+- Same for greet.html
+
+```HTML
+{% extends "layout.html" %}
+
+{% body block %}
+	Hello, {{ name }}
+{% endblock %}
+```
+
+- The scripting language used by FLASK here (as seen with these {}) is called Jinga
+- No we can always see the key value pair in the URL bar of the browser. Due to privacy concernes you might not want to do this. We can hide this extended URL but still send the key value pair by changing the method from get to post
+- In the app.py we change (mind the change from request.args.get to request.form.get args is for get and form is for post)
+
+```Python
+@app.route("/greet" methods=["POST"])
+def greet():
+	name = request.form.get("name")
+	return render_template("greet.html", name=name)
+```
+
+- And in the index.html we change it to
+
+```HTML
+{% extends "layout.html" %}
+
+{% body block %}
+<form action="/greet" method="post">
+	<input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
+	<input type="submit">
+</form>
+{% endblock %}
+```
+
+- The downside of hiding the URL with the extended key value pairs, is that form input and searches would become deleted, once you close or leave the page. A google search looks like
+
+```HTML
+https://www.google.com/search?q=what+time+is+it
+```
+
+- To go to the results again, you would click this link again and would see the results. But with POST instead of GET it looks like this
+
+```HTML
+https://www.google.com/search
+```
+
+- And you have to manually type the search again and run it
+
+![image info](./Pictures/flask4.png)
+
+- The MVC Model (Model View Controller) is a paradime for how to program with different frameworks like FLASK
+- In our example app.py is the controller, here the logic is housed on what to render when
+- Our index.html, greet.html and layout.html is the so called view, the visualisation of our logic and our user interface
+- The model would be a database or a csv file, the model stores the data
+- 
