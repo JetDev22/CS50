@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -77,6 +76,14 @@
               "type": "starred",
               "state": {}
             }
+          },
+          {
+            "id": "5c1f3e36b7674f6b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
           }
         ]
       }
@@ -99,7 +106,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Lesson Notes.md",
+                "file": "Fundamentals.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +123,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Lesson Notes.md",
+                "file": "Fundamentals.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -139,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Lesson Notes.md"
+                "file": "Fundamentals.md"
               }
             }
           }
@@ -160,8 +167,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0423fe4dd89677b7",
+  "active": "1fd451fd366ca27d",
   "lastOpenFiles": [
+    "Lesson Notes.md",
     "Pictures/flask4.png",
     "Pictures/flask3.png",
     "Pictures/flask2.png",
@@ -172,11 +180,9 @@
     "Pictures/dom3.png",
     "Pictures/dom2.png",
     "Pictures/dom1.png",
-    "Lesson Notes.md",
     "readme.md",
     "CommandLine.md",
     "Pictures/bigOgraph.png",
-    "bigOgraph.svg",
     "General.md",
     "Lesson_1.md",
     "Lesson_0_Intro.md"
