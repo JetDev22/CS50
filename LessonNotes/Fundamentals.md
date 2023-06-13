@@ -2462,3 +2462,147 @@ $('#colorDiv').css('background-color', 'green');
 ***
 
 ***
+# FLASK
+***
+- Python is not just used for command-line programming, though that's a major use case
+- Python contains native functionality to support networking and more, enabling site backends to be written in Python
+- Web frameworks make this process much easier, abstracting away the minutia of Python's syntax and providing helper functions
+- Some of the most popular include Django, Pyramid and Flask
+- We use Flask in CS50 because it is lightweight for ease of use in CS50 IDE, while still being feature-rich
+- We know that we can use HTML to build websites, but websites using pure HTML suffer from serious limitation
+- Imagine we want to create a website that displays the current time in Cambridge MA, displaying it to the latest minute
+
+```HTML
+<html>
+	<head>
+		<title>
+			Current Time in Cambridge
+		</title>
+	</head>
+	<body>
+		The current time in Cambridge is 14:08
+	</body>
+</html>
+```
+
+- Websites that are pure HTML are completely static. The only way we can update the content of our pages is to manually open up our source files, edit and save and then the next time the user visits or refreshes the page, they'll get the content
+- Incorporating Python into our code can make our code quite a bit more flexible and introduce a way for our pages to update or be dynamic without requiring our intervention
+
+```Python
+from flask import Flask
+from datetime import datetime
+from pytz import timezone
+
+app = Flask(__name__)
+
+@app.route("/")
+def time():
+	now = datetime.now(timezone('America/New_York'))
+	return "The Current date and time in Cambridge is {}".format(now)
+```
+
+- It's pretty simple to get started using Flask within CS50 IDE
+
+```Python
+from flask import Flask
+```
+
+- lower case flask is the name of the module and upper case Flask is the name of the function or class we want to import from flask
+- After importing the Flask module, we need to initiate a Flask application
+
+```Python
+app = Flask(__name__)
+```
+
+- The underscore underscore name underscore underscore takes the name of the Python file within it exists. For Flask that would be the standard app.py
+- From there it's just a matter of writing functions that define the behaviour of our application
+
+```Python
+@app.route("/")
+def index():
+	return "You are at the index page!"
+
+@app.route("/sample")
+def sample():
+	return "You are on the sample page!"
+```
+
+- The lines with the @ are known as "decorators". They are used in Flask to associate a particular function with a particular URL
+- Decorators also have more general use in Python, but that goes beyond the scope of CS50
+- To run the file you enter the following into the terminal (the first two only once)
+
+```Bash
+export FLASK_APP=app.py
+export FLASK_DEBUG=1
+flask run
+```
+
+- Data can be passed in via URLs, akin to using HTTP GET
+
+```Python
+@app.route("/show/<number>")
+def show(number):
+	return "You passed in {}".format(number)
+```
+
+- Data can be passed in via HTML forms, as with HTTP POST, but we need to indicate that Flask should respond to HTTP POST requests explicitly because Flask by default only uses GET
+
+```Python
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+	if not request.form.get("username")
+		return apology("must provide username")
+```
+
+- With the if statement we ask Flask to look at the username and if it is not provided we send the apology with text, making the username a requirement
+- We could also vary the behavior of our function depending on the type of HTTP request received:
+
+```Python
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+	if request.method == "POST":
+		# do one thing
+	else:
+		# do a different thing
+```
+
+- Flask has a number of functions within its module that will be useful for application development
+***
+
+***
+# AJAX
+***
+- Up until now, our interaction with JavaScript has been mostly limited to: push a button and something happens
+- We still don't have to entirely reload our page, but there is still some degree of user interaction
+- Ajax (formerly Asynchronous JavaScript and XML) allows us to dynamically update a webpage even more dynamically. Though, for now we won't go too crazy
+- It basically allows us to refresh sections of our webpage without refreshing the entire page, hence asynchronous since it is not depending on the refresh of the entire page
+- Central to our ability to asynchronously update our pages is to make use of a special JavaScript object called an XMLHttpRequest
+
+```JavaScript
+var xhttp = new XMLHttpRequest();
+```
+
+- After obtaining your new object, you need to define its onreadystatechange behavior. This is a function (typically an anonymous function) that will be called when the asynchronous HTTP request has completed and thus typically defines what is expected to change on your site
+- XMLHttpRequests have two additional properties that are used to detect when the page finishes loading
+	- The readyState property will change from 0 (request not yet initialised) to 1, 2, 3 and finally 4 (request finished, response ready)
+	- The status property will hopefully be 200 (ok)
+- Then just make your asynchronous request using the open() method to define the request and the send() method to actually send it
+
+```JavaScript
+function ajax_request(argument)
+{
+	var aj = new XMLHttpRequest();
+	aj.onreadystatechange = function() {
+	if (aj.readyState == 4 && aj.status == 200)
+		// do something
+	};
+
+	aj.open("GET", /*url*/, true);
+	aj.send();
+}
+```
+
+- More commonly you'll see Ajax request written using jQuery instead of "raw" JavaScript
+***
+
+***

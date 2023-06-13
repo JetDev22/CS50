@@ -2091,7 +2091,7 @@ name = request.args.get("name", "World")
 {% endblock %}
 ```
 
-- The scripting language used by FLASK here (as seen with these {}) is called Jinga
+- The scripting language used by FLASK here (as seen with these {}) is called Jinja
 - No we can always see the key value pair in the URL bar of the browser. Due to privacy concernes you might not want to do this. We can hide this extended URL but still send the key value pair by changing the method from get to post
 - In the app.py we change (mind the change from request.args.get to request.form.get args is for get and form is for post)
 
@@ -2135,4 +2135,97 @@ https://www.google.com/search
 - In our example app.py is the controller, here the logic is housed on what to render when
 - Our index.html, greet.html and layout.html is the so called view, the visualisation of our logic and our user interface
 - The model would be a database or a csv file, the model stores the data
-- 
+- To use for loops and if statements in your templates we use jinja (look at cheat sheet)
+
+- Since we do not just want to store our data in python data types like a dictionary or a list, since the data would be gone as soon as the server restarts, we need to utilise some sort of a database
+
+```Python
+# import SQLite to python
+from CS50 import SQL
+
+# create database
+db = SQL("sqlite:///mydatabase.db")
+
+# write variables name and sport to database
+db.execute = ("INSERT INTO mydatabase (name, sport) VALUES(?, ?)", name, sport)
+
+# pass all data from database to template
+@app.route("/database")
+def databaseReadout():
+	allFromDatabase = db.execute("SELECT * from mydatabase")
+	return render_template("database.html", allfromdatabase = allFromDatabase)
+
+# delete from database by id passed from website delete button
+@app.route("/deregister")
+def deregister():
+	id = request.form.get("id")
+	db.execute("DELETE FROM mydatabase WHERE id = ?", id)
+	return
+```
+
+- When ever you log into any modern website, there is something called a session. This stores your data, so when you return, your pick up where you left off (no new login required, shopping cart still contains the stored items, articles read are remembered)
+- This is more widely known as cookies, here an example what a gmail http header might look like, enabling cookies to keep your session alive
+
+```html
+HTTP/1.1 200 OK
+Content-Type: text/html
+Set-Cookie: session=value
+...
+```
+
+- A cookie is essentially a very long number that the browser tells your computer to store in memory (short term) or even on disk (long term). When you then revisit the page or any subpage you present this cookie in your html request to the server
+
+```HTML
+GET / HTTP/1.1
+Host: gmail.com
+Cookie: session=value
+...
+```
+
+- An example app that uses session and login in Flask looks like this
+
+```PYTHON
+from flask import Flask, redirect, render_template, request, session
+from flask_session import Session
+
+# Configure App
+app = Flask(__name__)
+
+# Configure Session
+app.config["SESSION_PERMANENT"] = false
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+@app.route("/")
+def index():
+	if not session.get("name"):
+		return redirect("/login")
+	return render_template("index.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+	if request.method == "POST":
+		session["name"] = request.form.get("name")
+		return redirect("/")
+	return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+	session["name"] = None
+	return redirect("/")
+```
+
+- Of course with Flask you can also integrate javascript, you are note limited to Python, SQL, Jinja and HTML
+
+```HTML
+<script>
+	console.log("JavaScript here")
+</script>
+```
+
+- So we use Python as backend, html as framework for our website and then we use JavaScript and JSON to present the data within our html dynamically 
+***
+
+***
+
+
