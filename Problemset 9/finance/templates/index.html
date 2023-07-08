@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <div>
+        <H2>Welcome back {{user}}</H2>
+        <H4>Cash balance: {{cash}} $</H4>
+        <H4>Total balance: {{totalValue}} $</H4>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>Stock</th>
+                <th>Amount</th>
+                <th>Stock Value</th>
+                <th>Total Value</th>
+            </tr>
+            {% for stocks in tableData %}
+            <tr>
+                <td>{{ stocks[0] }}</td>
+                <td>{{ stocks[1] }}</td>
+                <td>{{ stocks[2] }}$</td>
+                <td>{{ stocks[3] }}$</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

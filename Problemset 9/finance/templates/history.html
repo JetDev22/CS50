@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <div>
+        <H2>Transaction History, {{user}}</H2>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>Buy / Sell</th>
+                <th>Stock</th>
+                <th>Price $</th>
+                <th>Amount</th>
+                <th>Time</th>
+                <th>Date</th>
+            </tr>
+            {% for transaction in userHistory %}
+                <tr>
+                    <td>{{transaction["type"]}}</td>
+                    <td>{{transaction["symbol"]}}</td>
+                    <td>{{transaction["price"]}}</td>
+                    <td>{{transaction["amount"]}}</td>
+                    <td>{{transaction["time"]}}</td>
+                    <td>{{transaction["date"]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -36,7 +36,7 @@ Week  7 - SQL..................................[DONE]
 
 Week  8 - HTML, CSS, JavaScript....[DONE]
 
-Week  9 - Flask................................[CURRENT]
+Week  9 - Flask................................[DONE]
 
 Week 10 - Emoji...............................[TODO]
 ***

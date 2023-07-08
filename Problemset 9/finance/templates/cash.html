@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cash
+{% endblock %}
+
+{% block main %}
+    <form action="/cash" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="cash" name="cash" placeholder="Increase Cash" type="number">
+        </div>
+        <button class="btn btn-primary" type="submit">Send more Cash</button>
+    </form>
+    <div>
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Time</th>
+                <th>Date</th>
+            </tr>
+            {% for payments in payments %}
+                <tr>
+                    <td>{{payments["amount"]}}</td>
+                    <td>{{payments["time"]}}</td>
+                    <td>{{payments["date"]}}</td>
+
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
