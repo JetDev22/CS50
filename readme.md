@@ -17,7 +17,7 @@ So here I will upload all my completed problemsets and my notes, done with Obsid
 - Lesson Notes [All notes taken while watching the lecture itself]
 - Fundamentals [All CS50 shorts in text form, grouped by topic]
 ***
-## Current Status
+## CS50x Status
 Week  0 - Scratch.............................[DONE]
 
 Week  1 - C.......................................[DONE]
@@ -38,14 +38,36 @@ Week  8 - HTML, CSS, JavaScript....[DONE]
 
 Week  9 - Flask................................[DONE]
 
-Week 10 - Emoji...............................[TODO]
+Week 10 - Emoji...............................[DONE]
+
+Final Project.....................................[DONE]
+***
+
+## CS50w Status
+Week  0 - HTML, CSS.......................[TODO]
+
+Week  1 - Git.....................................[TODO]
+
+Week  2 - Python...............................[TODO]
+
+Week  3 - Django...............................[TODO]
+
+Week  4 - SQL, Models & Migration...[TODO]
+
+Week  5 - JavaScript.........................[TODO]
+
+Week  6 - User Interfaces.................[TODO]
+
+Week  7 - Testing, CI/CD...................[TODO]
+
+Week  8 - Scaleability, Security........[TODO]
 ***
 ## Roadmap
-- Finish CS50x
-- Follow up with another CS50 course (like web development)
-- Expand on the Fundamentals for whatever fits a knowledge database
+- CS50x
+- CS50w
+- FrontEndMaster Algorithms and Datastructures Course by Primeagen
 ***
 ## Disclaimer
 All the problem sets are solved by me, they may not be pretty or the most efficient way, but they get the job done and may be used in future to go back and improve on the code or write it in a different language.
 
-The content of my lesson notes and fundamentals are all taken from CS50.
+The content of my lesson notes and fundamentals are all taken from CS50x / CS50w / FrontendMasters Algorithms & Datastructures.

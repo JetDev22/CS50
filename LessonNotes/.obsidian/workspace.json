@@ -8,24 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "1fd451fd366ca27d",
+            "id": "d7185018c0758cb5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Fundamentals.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0423fe4dd89677b7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Lesson Notes.md",
+                "file": "readme.md",
                 "mode": "source",
                 "source": false
               }
@@ -89,8 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 245.5,
-    "collapsed": true
+    "width": 245.5
   },
   "right": {
     "id": "cbc6f1db56440ac4",
@@ -106,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Fundamentals.md",
+                "file": "readme.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +110,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Fundamentals.md",
+                "file": "readme.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +133,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Fundamentals.md"
+                "file": "readme.md"
               }
             }
           }
@@ -167,10 +154,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "1fd451fd366ca27d",
+  "active": "d7185018c0758cb5",
   "lastOpenFiles": [
-    "Lesson Notes.md",
-    "Fundamentals.md",
+    "CS50x CLI commands.md",
+    "CS50x Lesson Notes.md",
+    "CS50w Lesson Notes.md",
+    "CS50x Fundamentals.md",
+    "Algoritms & Datastructures.md",
+    "readme.md",
     "Pictures/flask4.png",
     "Pictures/flask3.png",
     "Pictures/flask2.png",
@@ -180,8 +171,6 @@
     "Pictures/dom3.png",
     "Pictures/dom2.png",
     "Pictures/dom1.png",
-    "readme.md",
-    "CommandLine.md",
     "Pictures/bigOgraph.png",
     "General.md",
     "Lesson_1.md",
