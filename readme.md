@@ -1,2 +1,3 @@
 CS50X
-<img width="600px" src="certifications/CS50X.png">
+***
+<img width="600px" src="CS50.png">
