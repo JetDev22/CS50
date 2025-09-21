@@ -1,3 +1,3 @@
 CS50X
 ***
-<img width="600px" src="CS50.png">
+<img width="600px" src="CS50x.png">
